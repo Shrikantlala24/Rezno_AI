@@ -1,0 +1,47 @@
+# Research Agent Pipeline - MVP Dependencies
+# Python 3.9+
+
+# Core orchestration & LLM
+langchain==0.1.14
+langchain-community==0.0.38
+python-dotenv==1.0.0
+
+# API clients
+arxiv==2.0.0
+anthropic==0.25.0
+
+# Data processing & storage
+pandas==2.1.4
+numpy==1.24.3
+
+# # Vector embeddings
+# sentence-transformers==2.2.2
+# scikit-learn==1.3.2
+
+# # Vector database
+# pinecone-client==3.0.0
+
+# # Graph database (knowledge graph)
+# neo4j==5.14.1
+
+# Web framework & UI
+streamlit==1.28.1
+streamlit-graph-vis==0.0.5
+
+# PDF handling (if needed for future full-text extraction)
+PyPDF2==3.0.1
+pdfplumber==0.10.3
+
+# NLP & entity extraction
+# spacy==3.7.2
+
+# Utilities
+requests==2.31.0
+aiohttp==3.9.1
+pydantic==2.5.0
+python-dateutil==2.8.2
+
+# Development & testing
+pytest==7.4.3
+black==23.12.0
+flake8==6.1.0
