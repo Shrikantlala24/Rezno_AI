@@ -1,45 +1,26 @@
-# Research Agent Pipeline - MVP Dependencies
+# Research Agent — dependencies
 
-# Core orchestration & LLM
-langchain
-langchain-community
-python-dotenv
-
-# API clients
+# arXiv search
 arxiv
 
-# Data processing & storage
-pandas
+# Ranking (MiniLM embeddings + numpy cosine)
+sentence-transformers
 numpy
 
-# # Vector embeddings
-# sentence-transformers
-# scikit-learn
+# LLM (query expansion, routing, extraction, synthesis)
+# LangChain is a thin wrapper only — structured output, not orchestration.
+langchain
+langchain-google-genai
+langchain-anthropic
+python-dotenv
 
-# # Vector database
-# pinecone-client
-
-# # Graph database (knowledge graph)
-# neo4j
-
-# Web framework & UI
-streamlit
-# streamlit-graph-vis
-
-# PDF handling
-PyPDF2
-pdfplumber
-
-# # NLP & entity extraction
-# spacy
-
-# Utilities
-requests
-aiohttp
+# Schemas
 pydantic
-python-dateutil
 
-# Development & testing
-pytest
+# UI
+streamlit
+streamlit-agraph
+
+# Dev
 black
 flake8
