@@ -92,5 +92,7 @@ class ChatMessage(BaseModel):
     is_unsourced: bool = False
     is_fallback: bool = False
     claims: List[SupportedClaim] = Field(default_factory=list)
+    response_length: str = "standard"   # "brief" | "standard" | "detailed"
+
 
 

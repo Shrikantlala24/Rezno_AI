@@ -46,6 +46,7 @@ def run_pipeline(
     expand: bool = True,
     with_graph: bool = True,
     with_synthesis: bool = True,
+    response_length: str = "standard",
     on_progress: Progress = None,
 ) -> PipelineResult:
     def step(message: str) -> None:
@@ -77,6 +78,6 @@ def run_pipeline(
 
     if with_synthesis:
         step("Synthesizing answer")
-        result.synthesis = synthesize(query, papers, top_n=show)
+        result.synthesis = synthesize(query, papers, top_n=show, response_length=response_length)
 
     return result
