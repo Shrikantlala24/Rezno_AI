@@ -1,0 +1,5 @@
+{
+  "/api/follow-up/general/route": "app/api/follow-up/general/route.js",
+  "/api/route/route": "app/api/route/route.js",
+  "/page": "app/page.js"
+}

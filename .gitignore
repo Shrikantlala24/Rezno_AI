@@ -8,3 +8,7 @@ __pycache__/
 .env
 
 node_modules/
+
+# 
+
+shadcn-chatbot-kit-main
