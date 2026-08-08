@@ -37,8 +37,9 @@ def search(queries: List[str], per_query: int = 80) -> List[ArxivPaper]:
             for result in _client.results(request):
                 paper = _to_paper(result)
                 seen.setdefault(paper.arxiv_id, paper)
-        except arxiv.ArxivError as e:
-            # arXiv rate-limits (429) and occasionally serves empty pages. One bad
+        except Exception as e:
+            # arXiv rate-limits (429), timeouts, or empty pages. One bad
             # variant should cost us its results, not the whole search.
             logger.warning("arxiv query failed, skipping variant %r: %s", q, e)
     return list(seen.values())
+

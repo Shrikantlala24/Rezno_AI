@@ -17,11 +17,21 @@ class ArxivPaper(BaseModel):
 
 class RankedPaper(ArxivPaper):
     relevance_score: float
+    status: Literal["unreviewed", "keep", "maybe", "skip"] = "unreviewed"
+    note: str | None = None
+
+
+class SupportedClaim(BaseModel):
+    claim: str
+    arxiv_id: str
+    supporting_sentence: str
 
 
 class Synthesis(BaseModel):
     summary: str
     citations: List[str]
+    claims: List[SupportedClaim] = Field(default_factory=list)
+
 
 
 class QueryPlan(BaseModel):
@@ -42,7 +52,7 @@ class InsightSet(BaseModel):
 
 
 class Route(BaseModel):
-    intent: Literal["new_search", "follow_up"]
+    intent: Literal["new_search", "follow_up_grounded", "follow_up_general"]
 
 
 class GraphNode(BaseModel):
@@ -60,3 +70,27 @@ class GraphEdge(BaseModel):
 class ConceptGraph(BaseModel):
     nodes: List[GraphNode]
     edges: List[GraphEdge]
+
+
+class SearchRun(BaseModel):
+    id: str
+    query: str
+    queries: List[str]
+    candidate_count: int
+    papers: List[RankedPaper]
+    insights: List[Insight] = Field(default_factory=list)
+    graph: ConceptGraph | None = None
+    synthesis: Synthesis | None = None
+    timestamp: str = ""
+
+
+class ChatMessage(BaseModel):
+    role: Literal["user", "assistant"]
+    content: str
+    intent: Literal["new_search", "follow_up_grounded", "follow_up_general"] | None = None
+    search_run_id: str | None = None
+    is_unsourced: bool = False
+    is_fallback: bool = False
+    claims: List[SupportedClaim] = Field(default_factory=list)
+
+

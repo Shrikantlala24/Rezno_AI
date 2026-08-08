@@ -40,6 +40,8 @@ class PipelineResult:
 def run_pipeline(
     query: str,
     top_k: int = 20,
+    per_query: int = 80,
+    num_queries: int = 4,
     show: int = 8,
     expand: bool = True,
     with_graph: bool = True,
@@ -51,13 +53,14 @@ def run_pipeline(
             on_progress(message)
 
     step("Planning search queries")
-    queries = plan_query(query) if expand else [query]
+    queries = plan_query(query, num_queries=num_queries) if expand else [query]
 
     step(f"Searching arXiv ({len(queries)} quer{'y' if len(queries) == 1 else 'ies'})")
-    candidates = search(queries)
+    candidates = search(queries, per_query=per_query)
 
     step(f"Ranking {len(candidates)} candidates")
     papers = rank(candidates, query, top_k=top_k)
+
 
     result = PipelineResult(
         query=query,

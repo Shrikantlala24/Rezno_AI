@@ -31,7 +31,7 @@ Rules:
 - Vary specificity: at least one narrow variant and one broader variant"""
 
 
-def plan_query(query: str) -> List[str]:
+def plan_query(query: str, num_queries: int = 4) -> List[str]:
     """NL question -> arXiv boolean query variants. Falls back to raw query on failure."""
     model = get_llm().with_structured_output(QueryPlan)
     try:
@@ -40,4 +40,5 @@ def plan_query(query: str) -> List[str]:
         return [query]
 
     variants = [q.strip() for q in plan.queries if q and q.strip()]
-    return variants or [query]
+    return variants[:num_queries] if variants else [query]
+
