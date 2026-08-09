@@ -1,0 +1,59 @@
+# .deployignore — files excluded from Zerops deploy (same syntax as .gitignore)
+# Zerops deploys to /var/www; these paths are stripped from that bundle.
+
+# Virtual environments — never deploy
+.venv/
+venv/
+env/
+
+# Git metadata
+.git/
+
+# Reflex dev-only directories
+.states/
+reflex.lock/
+reflex.log
+
+# Legacy / Streamlit files (not part of Reflex app)
+app.py
+.streamlit/
+rezno/
+rezno_app/
+
+# Dev tools & scratch files
+diagnostic_test.py
+test_arxiv_endpoints.py
+eval_cases.py
+evaluate.py
+design/
+Docs/
+plan.md
+knowledge.md
+project_code_context.md
+CLAUDE.md
+AGENTS.md
+wireframe.json
+ui.css
+static/
+
+# Build caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Logs
+*.log
+o.log
+e.log
+st_err.log
+st_out.log
+
+# Secrets
+.env
+
+# Font file (served from assets/, not root)
+GeistPixel-Regular-VariableFont_ELSH.ttf
+
+# Lock files (runtime uses requirements.txt)
+uv.lock

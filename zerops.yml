@@ -1,0 +1,66 @@
+# Zerops deployment configuration for Rezno AI
+# Docs: https://docs.zerops.io/python/how-to/build-pipeline
+
+zerops:
+  - setup: rezno-ai
+
+    # ── BUILD ────────────────────────────────────────────────────────────────
+    build:
+      # Ubuntu required so we can curl-install Bun (Reflex frontend runtime)
+      base: python@3.11
+      os: ubuntu
+
+      prepareCommands:
+        - |
+          # 1. Install Bun (needed by Reflex to compile the Next.js frontend)
+          curl -fsSL https://bun.sh/install | bash
+          ln -s "$HOME/.bun/bin/bun" /usr/local/bin/bun
+
+          # 2. Install all Python dependencies (includes reflex)
+          pip install -r requirements.txt
+
+          # 3. Pre-compile the Reflex / Next.js frontend bundle
+          reflex export --frontend-only --no-zip
+
+      # Deploy the entire project directory.
+      # Dev-only / heavy paths are excluded via .deployignore
+      deployFiles: .
+
+      # Copy requirements.txt to runtime prepare container for pip install there
+      addToRunPrepare:
+        - requirements.txt
+
+      # Cache pip downloads between builds to speed up subsequent deploys
+      cache: ~/.cache/pip
+
+    # ── RUN ──────────────────────────────────────────────────────────────────
+    run:
+      base: python@3.11
+      os: ubuntu
+
+      prepareCommands:
+        - |
+          # Install Bun for Next.js frontend serving at runtime
+          curl -fsSL https://bun.sh/install | bash
+          ln -s "$HOME/.bun/bin/bun" /usr/local/bin/bun
+
+          # Install Python runtime dependencies
+          pip install -r requirements.txt
+
+      ports:
+        - port: 8000   # Reflex Python backend + WebSocket
+          httpSupport: true
+        - port: 3000   # Next.js frontend
+          httpSupport: true
+
+      envVariables:
+        PORT: "8000"
+        FRONTEND_PORT: "3000"
+        # GOOGLE_API_KEY must be set in Zerops GUI → Service → Environment Variables
+
+      start: reflex run --env prod
+
+      healthCheck:
+        httpGet:
+          port: 8000
+          path: /ping

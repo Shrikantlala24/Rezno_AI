@@ -3,7 +3,6 @@ import reflex as rx
 from app.components.conversation_rail import conversation_rail
 from app.components.header import header
 from app.components.workspace_rail import workspace_rail
-from app.states.theme_state import ThemeState
 
 
 def index() -> rx.Component:
