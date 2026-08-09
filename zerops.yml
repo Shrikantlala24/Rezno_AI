@@ -53,13 +53,8 @@ zerops:
       envVariables:
         PORT: "8000"
         FRONTEND_PORT: "3000"
-        # Set GOOGLE_API_KEY in Zerops GUI → Service → Environment Variables
+        HOST: "0.0.0.0"
+        # Set GOOGLE_API_KEY & TAVILY_API_KEY in Zerops GUI → Service → Environment Variables
 
-      # Add bun to PATH, cd into deployed app dir, then start reflex
-      # reflex run --env prod will compile the frontend on first start using bun
-      start: bash -c 'export PATH="$HOME/.bun/bin:$PATH" && cd /var/www && /home/zerops/venv/bin/reflex run --env prod'
-
-      healthCheck:
-        httpGet:
-          port: 8000
-          path: /ping
+      # Add bun to PATH, set HOST=0.0.0.0, cd into deployed app dir, then start reflex
+      start: bash -c 'export PATH="$HOME/.bun/bin:$PATH" && export HOST=0.0.0.0 && cd /var/www && /home/zerops/venv/bin/reflex run --env prod --backend-host 0.0.0.0 --backend-port 8000 --frontend-port 3000'
