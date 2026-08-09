@@ -1,0 +1,264 @@
+/* Research Agent — token system (light default, .dark override) */
+
+:root {
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --background: hsl(97 4% 100%);
+  --foreground: oklch(0.241 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.241 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.241 0.005 285.823);
+  --primary: oklch(0.31 0.006 285.885);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.31 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.652 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.31 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.85 0.004 286.32);
+  --input: oklch(0.85 0.004 286.32);
+  --ring: oklch(0.605 0.015 286.067);
+
+  /* app-specific accents */
+  --graph-paper: #003c33;
+  --graph-concept: #5f7f70;
+  --graph-similar: #c6c7c4;
+  --graph-mentions: #d9dcd8;
+  --mark-coral: #ff7759;
+  --link: #1863dc;
+
+  --shadow-soft: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-float: 0 8px 24px rgb(0 0 0 / 0.06);
+}
+
+.dark {
+  --background: #000000;
+  --foreground: oklch(0.985 0 0);
+  --card: #0f0f0f;
+  --card-foreground: oklch(0.985 0 0);
+  --popover: #000000;
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.92 0.004 286.32);
+  --primary-foreground: #0f0f0f;
+  --secondary: #111111;
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: #111111;
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: #111111;
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.552 0.016 285.938);
+
+  --link: #6fa2ff;
+  --shadow-float: 0 8px 24px rgb(0 0 0 / 0.6);
+}
+
+@font-face {
+  font-family: "GeistPixel";
+  src: url("/GeistPixel.woff2") format("woff2"),
+       url("/GeistPixel-Regular-VariableFont_ELSH.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+html,
+body,
+#root,
+.radix-themes,
+[data-radix-theme],
+button,
+input,
+textarea,
+select,
+p, h1, h2, h3, h4, h5, h6, span, div, a, li, label, code, pre {
+  font-family: "GeistPixel", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace !important;
+}
+
+* {
+  font-family: "GeistPixel", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace !important;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* One scroller per region, thin and unobtrusive. */
+.ra-scroll {
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--muted-foreground) 45%, transparent)
+    transparent;
+}
+
+.ra-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.ra-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ra-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--muted-foreground) 40%, transparent);
+  border-radius: 999px;
+}
+
+/* Faint dot grid used behind empty canvases (graph placeholder). */
+.ra-dotgrid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 16px 16px;
+}
+
+@keyframes ra-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ra-fade-up {
+  animation: ra-fade-up 300ms ease-out both;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--foreground) 18%, transparent);
+}
+
+/* Assistant markdown: dense, flat, token-driven. */
+.ra-md {
+  color: var(--foreground);
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+
+.ra-md p {
+  margin: 0 0 0.625rem;
+}
+
+.ra-md p:last-child {
+  margin-bottom: 0;
+}
+
+.ra-md h1,
+.ra-md h2,
+.ra-md h3 {
+  color: var(--foreground);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  margin: 0.875rem 0 0.5rem;
+}
+
+.ra-md h1 {
+  font-size: 1.25rem;
+}
+
+.ra-md h2 {
+  font-size: 1.125rem;
+}
+
+.ra-md h3 {
+  font-size: 1rem;
+}
+
+.ra-md ul,
+.ra-md ol {
+  margin: 0 0 0.75rem 1.125rem;
+  padding: 0;
+}
+
+.ra-md ul {
+  list-style: disc;
+}
+
+.ra-md ol {
+  list-style: decimal;
+}
+
+.ra-md li {
+  margin: 0.1875rem 0;
+}
+
+.ra-md a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.ra-md a:hover {
+  text-decoration: underline;
+}
+
+.ra-md code {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0 0.25rem;
+  font-size: 0.95em;
+}
+
+.ra-md pre {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 0.875rem;
+  overflow-x: auto;
+  margin: 0 0 0.75rem;
+}
+
+.ra-md pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.ra-md blockquote {
+  margin: 0.75rem 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--border);
+  color: var(--muted-foreground);
+}
+
+.ra-md table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.ra-md th,
+.ra-md td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 0.625rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.ra-md th {
+  color: var(--muted-foreground);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+}

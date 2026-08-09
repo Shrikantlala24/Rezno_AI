@@ -1,0 +1,17 @@
+{
+  "include": [
+    "app",
+    "rxconfig.py"
+  ],
+  "exclude": [
+    ".venv",
+    "venv",
+    ".web",
+    "__pycache__"
+  ],
+  "typeCheckingMode": "basic",
+  "reportAttributeAccessIssue": "none",
+  "reportReturnType": "warning",
+  "reportArgumentType": "warning",
+  "pythonVersion": "3.11"
+}

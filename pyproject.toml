@@ -1,0 +1,28 @@
+[project]
+name = "rezno-ai"
+version = "0.1.0"
+description = "arXiv research assistant — retrieval, ranking, synthesis, concept graph"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # arXiv search
+    "arxiv",
+    # Ranking
+    "sentence-transformers",
+    "numpy",
+    # LLM
+    "langchain",
+    "langchain-google-genai",
+    "langchain-anthropic",
+    "python-dotenv",
+    # Schemas
+    "pydantic",
+    # UI
+    "reflex[db]==0.9.6.post2",
+]
+
+[dependency-groups]
+dev = [
+    "black",
+    "flake8",
+]

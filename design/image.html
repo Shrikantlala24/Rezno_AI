@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Research Agent — Minimal Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#201d1d;
+    --ink-deep:#0f0000;
+    --cream:#fdfcfc;
+    --soft:#f8f7f7;
+    --card:#f1eeee;
+    --dark:#201d1d;
+    --dark-elevated:#302c2c;
+    --hairline:rgba(15,0,0,0.12);
+    --hairline-strong:#646262;
+    --font-mono:'Geist Mono', ui-monospace, monospace;
+    --font-sans:'Inter', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--font-sans);
+    width:1500px;
+  }
+  svg.icon{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;}
+  .app{display:grid; grid-template-columns:64px 268px 610px 558px; min-height:960px;}
+
+  /* ===== ICON RAIL ===== */
+  .icon-rail{
+    border-right:1px solid var(--hairline);
+    display:flex; flex-direction:column; align-items:center;
+    padding:20px 0; gap:8px;
+  }
+  .icon-btn{
+    width:36px; height:36px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--hairline-strong);
+  }
+  .icon-btn.active{ background:var(--card); color:var(--ink); }
+  .rail-spacer{flex:1;}
+  .avatar-dot{
+    width:28px; height:28px; border-radius:50%;
+    background:var(--dark); margin-top:8px;
+  }
+
+  /* ===== SIDE PANEL ===== */
+  .side-panel{ border-right:1px solid var(--hairline); padding:24px 22px; display:flex; flex-direction:column; gap:26px; }
+  .brand-row{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{ display:flex; align-items:center; gap:8px; }
+  .brand-mark{ width:26px; height:26px; border-radius:6px; background:var(--dark); color:var(--cream); font-family:var(--font-mono); font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; }
+  .brand-name{ font-family:var(--font-mono); font-size:16px; font-weight:600; }
+  .tagline{ font-size:11.5px; color:var(--hairline-strong); line-height:1.5; margin-top:10px; }
+  .eyebrow{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--hairline-strong); margin-bottom:14px; }
+  .slider-row{ margin-bottom:18px; }
+  .slider-row:last-child{ margin-bottom:0; }
+  .slider-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .slider-label{ font-size:12.5px; color:var(--ink); }
+  .slider-value{ font-family:var(--font-mono); font-size:12px; border:1px solid var(--hairline); border-radius:5px; padding:2px 8px; color:var(--ink); }
+  .track{ height:3px; background:var(--card); border-radius:2px; position:relative; }
+  .track .fill{ position:absolute; left:0; top:0; height:100%; background:var(--ink); border-radius:2px; }
+  .track .thumb{ position:absolute; top:50%; width:11px; height:11px; background:var(--ink); border-radius:50%; transform:translate(-50%,-50%); border:2px solid var(--cream); box-shadow:0 0 0 1px var(--hairline-strong); }
+  .track-minmax{ display:flex; justify-content:space-between; font-size:10.5px; color:var(--hairline-strong); margin-top:6px; }
+  .segmented{ display:flex; border:1px solid var(--hairline); border-radius:8px; overflow:hidden; }
+  .segmented div{ flex:1; text-align:center; font-size:12px; padding:8px 0; color:var(--hairline-strong); }
+  .segmented div.active{ background:var(--dark); color:var(--cream); font-weight:500; }
+  .stat-row{ display:flex; gap:10px; }
+  .stat-block{ flex:1; background:var(--soft); border:1px solid var(--hairline); border-radius:8px; padding:12px 14px; }
+  .stat-label{ font-size:10.5px; color:var(--hairline-strong); margin-bottom:6px; }
+  .stat-num{ font-family:var(--font-mono); font-size:21px; font-weight:600; }
+  .cite-list{ display:flex; flex-direction:column; gap:2px; }
+  .cite-row{ display:flex; align-items:center; justify-content:space-between; padding:7px 4px; border-radius:6px; font-family:var(--font-mono); font-size:12px; }
+  .cite-row:hover{ background:var(--soft); }
+  .cite-row .left{ display:flex; align-items:center; gap:8px; color:var(--ink); }
+  .cite-row svg{ color:var(--hairline-strong); }
+  .btn-quiet{ font-family:var(--font-sans); font-size:12.5px; color:var(--ink); background:var(--cream); border:1px solid var(--hairline); border-radius:8px; padding:9px 12px; width:100%; display:flex; align-items:center; justify-content:center; gap:6px; }
+
+  /* ===== CONVERSATION ===== */
+  .conversation{ border-right:1px solid var(--hairline); display:flex; flex-direction:column; height:960px; }
+  .conv-header{ display:flex; align-items:center; justify-content:space-between; padding:20px 28px; border-bottom:1px solid var(--hairline); }
+  .conv-title{ font-family:var(--font-mono); font-size:15px; font-weight:600; }
+  .live{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--hairline-strong); }
+  .live .dot{ width:6px; height:6px; border-radius:50%; background:var(--ink); }
+  .thread{ flex:1; padding:26px 28px; display:flex; flex-direction:column; gap:24px; overflow:hidden; }
+  .msg{ display:flex; gap:10px; max-width:480px; }
+  .msg.user{ align-self:flex-end; flex-direction:row-reverse; }
+  .avatar{ width:26px; height:26px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; font-weight:600; }
+  .avatar.user{ background:var(--dark-elevated); color:var(--cream); }
+  .avatar.assistant{ background:var(--ink); color:var(--cream); }
+  .bubble-user{ background:var(--soft); border:1px solid var(--hairline); border-radius:10px 10px 2px 10px; padding:10px 14px; font-size:13.5px; display:flex; align-items:center; gap:10px; }
+  .bubble-user .time{ font-size:10.5px; color:var(--hairline-strong); white-space:nowrap; }
+  .answer{ font-size:14px; line-height:1.75; color:var(--ink); }
+  .answer p{ margin-bottom:12px; }
+  .evidence-row{ margin-top:8px; display:flex; align-items:center; gap:6px; font-size:12px; color:var(--hairline-strong); border:1px solid var(--hairline); border-radius:8px; padding:9px 12px; }
+  .live-note{ margin-top:10px; display:flex; align-items:center; gap:6px; font-size:11.5px; font-style:italic; color:var(--hairline-strong); }
+  .input-bar{ margin:0 28px 22px; border:1px solid var(--hairline-strong); border-radius:10px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; background:var(--cream); }
+  .input-bar .placeholder{ font-size:13px; color:var(--hairline-strong); }
+  .input-right{ display:flex; align-items:center; gap:10px; }
+  .kbd{ font-family:var(--font-mono); font-size:10.5px; color:var(--hairline-strong); border:1px solid var(--hairline); border-radius:5px; padding:2px 6px; }
+  .send-btn{ width:28px; height:28px; border-radius:7px; background:var(--dark); display:flex; align-items:center; justify-content:center; color:var(--cream); }
+
+  /* ===== WORKSPACE ===== */
+  .workspace{ padding:22px 26px; }
+  .dropdown-label{ font-size:11px; color:var(--hairline-strong); margin-bottom:8px; }
+  .dropdown{ border:1px solid var(--hairline); border-radius:9px; padding:10px 12px; font-size:12.5px; display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+  .dropdown .left{ display:flex; align-items:center; gap:8px; }
+  .tabs{ display:flex; gap:22px; border-bottom:1px solid var(--hairline-strong); margin-bottom:18px; }
+  .tab{ font-size:12.5px; padding-bottom:10px; color:var(--hairline-strong); }
+  .tab.active{ color:var(--ink); border-bottom:2px solid var(--ink); font-weight:500; }
+  .ws-header-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .ws-header-row .label{ font-size:12px; color:var(--hairline-strong); }
+  .export-btn{ font-size:11.5px; border:1px solid var(--hairline); border-radius:7px; padding:7px 11px; display:flex; align-items:center; gap:6px; }
+  .paper-card{ background:var(--cream); border:1px solid var(--hairline-strong); border-radius:10px; padding:16px; margin-bottom:14px; }
+  .paper-title-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; }
+  .paper-title{ font-family:var(--font-mono); font-size:14.5px; font-weight:600; line-height:1.4; }
+  .tag-row{ display:flex; gap:8px; align-items:center; margin-bottom:12px; }
+  .chip{ font-family:var(--font-mono); font-size:11px; padding:3px 8px; border-radius:5px; border:1px solid var(--hairline); }
+  .chip-score{ font-family:var(--font-mono); font-size:12px; color:var(--ink); font-weight:600; }
+  .abstract{ font-size:12.5px; color:var(--hairline-strong); line-height:1.6; margin-bottom:10px; }
+  .link-row{ display:flex; gap:16px; font-size:11.5px; color:var(--ink); margin-bottom:16px; }
+  .section-label{ font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--hairline-strong); margin-bottom:10px; }
+  .pill-row{ display:flex; gap:8px; margin-bottom:12px; }
+  .pill{ font-size:12px; padding:6px 14px; border-radius:999px; border:1px solid var(--hairline); color:var(--hairline-strong); }
+  .pill.active{ background:var(--dark); color:var(--cream); border-color:var(--dark); font-weight:500; }
+  .notes-field{ border:1px solid var(--hairline); border-radius:8px; padding:9px 11px; font-size:12px; color:var(--hairline-strong); margin-bottom:16px; }
+  .collapsible-head{ display:flex; justify-content:space-between; align-items:center; padding-top:12px; border-top:1px solid var(--hairline); font-size:12.5px; font-weight:500; margin-bottom:12px; }
+  .fetch-btn{ font-size:11.5px; border:1px solid var(--hairline); border-radius:7px; padding:7px 11px; display:flex; align-items:center; gap:6px; }
+  .chain-cols{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .subgroup-title{ font-size:11px; color:var(--hairline-strong); margin-bottom:8px; }
+  .paper-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; font-size:12px; padding:6px 0; border-bottom:1px solid var(--hairline); }
+  .add-link{ font-size:11px; color:var(--ink); flex-shrink:0; white-space:nowrap; }
+  .collapsed-row{ display:flex; align-items:center; gap:12px; padding:13px 14px; border:1px solid var(--hairline); border-radius:9px; font-size:12.5px; margin-bottom:8px; }
+  .collapsed-row .num{ font-family:var(--font-mono); font-size:11px; color:var(--hairline-strong); }
+  .collapsed-row .title{ flex:1; }
+  .collapsed-row svg{ color:var(--hairline-strong); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ICON RAIL -->
+  <div class="icon-rail">
+    <div class="icon-btn active"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+    <div class="icon-btn"><svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <div class="icon-btn"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+    <div class="icon-btn"><svg class="icon" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><line x1="8.2" y1="7.2" x2="10.5" y2="16.2"/><line x1="15.8" y1="7.2" x2="13.5" y2="16.2"/></svg></div>
+    <div class="icon-btn"><svg class="icon" viewBox="0 0 24 24"><line x1="6" y1="20" x2="6" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="14"/></svg></div>
+    <div class="icon-btn"><svg class="icon" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></div>
+    <div class="rail-spacer"></div>
+    <div class="icon-btn"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></svg></div>
+    <div class="icon-btn"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.6 1z"/></svg></div>
+    <div class="avatar-dot"></div>
+  </div>
+
+  <!-- SIDE PANEL -->
+  <div class="side-panel">
+    <div>
+      <div class="brand-row">
+        <div class="brand">
+          <div class="brand-mark">R</div>
+          <div class="brand-name">Research Agent</div>
+        </div>
+        <svg class="icon" viewBox="0 0 24 24" style="color:var(--hairline-strong)"><polyline points="15 18 9 12 15 6"/></svg>
+      </div>
+      <div class="tagline">arXiv search, ranking, synthesis, and citation intelligence.</div>
+    </div>
+
+    <div>
+      <div class="eyebrow">Pipeline controls</div>
+      <div class="slider-row">
+        <div class="slider-top"><span class="slider-label">Papers per query variant</span><span class="slider-value">30</span></div>
+        <div class="track"><div class="fill" style="width:22%"></div><div class="thumb" style="left:22%"></div></div>
+        <div class="track-minmax"><span>10</span><span>100</span></div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-top"><span class="slider-label">Ranking top-k</span><span class="slider-value">5</span></div>
+        <div class="track"><div class="fill" style="width:21%"></div><div class="thumb" style="left:21%"></div></div>
+        <div class="track-minmax"><span>1</span><span>20</span></div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-top"><span class="slider-label">Query variants count</span><span class="slider-value">2</span></div>
+        <div class="track"><div class="fill" style="width:25%"></div><div class="thumb" style="left:25%"></div></div>
+        <div class="track-minmax"><span>1</span><span>5</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="eyebrow">Response length</div>
+      <div class="segmented">
+        <div>Brief</div>
+        <div class="active">Standard</div>
+        <div>Detailed</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="eyebrow">Session overview</div>
+      <div class="stat-row">
+        <div class="stat-block"><div class="stat-label">Messages</div><div class="stat-num">4</div></div>
+        <div class="stat-block"><div class="stat-label">Search runs</div><div class="stat-num">1</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="eyebrow">Citations (selected search)</div>
+      <div class="cite-list">
+        <div class="cite-row"><span class="left"><svg class="icon" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/></svg>2311.00237v3</span><svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+        <div class="cite-row"><span class="left"><svg class="icon" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/></svg>2305.13848v2</span><svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+        <div class="cite-row"><span class="left"><svg class="icon" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/></svg>2402.01971v1</span><svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+        <div class="cite-row"><span class="left"><svg class="icon" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/></svg>2207.12306v4</span><svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+        <div class="cite-row"><span class="left"><svg class="icon" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/></svg>2401.08751v2</span><svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;">
+      <button class="btn-quiet"><svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Clear session</button>
+    </div>
+  </div>
+
+  <!-- CONVERSATION -->
+  <div class="conversation">
+    <div class="conv-header">
+      <div class="conv-title">Conversation</div>
+      <div class="live"><span class="dot"></span>Live</div>
+    </div>
+
+    <div class="thread">
+      <div class="msg user">
+        <div class="avatar user">U</div>
+        <div class="bubble-user">What is context engineering in large language models?<span class="time">13:17</span></div>
+      </div>
+
+      <div class="msg">
+        <div class="avatar assistant">R</div>
+        <div>
+          <div class="answer">
+            <p>Context engineering refers to the deliberate design, selection, and arrangement of information provided to large language models to improve the quality, reliability, and relevance of their outputs. Rather than relying solely on model parameters or fine-tuning, it treats the input context as a controllable interface.</p>
+            <p>Key aspects include selecting the right pieces of information, ordering them to match the model's attention patterns, and formatting the context to reduce ambiguity. Common techniques include retrieval augmentation, structured prompts, memory management, and dynamic context assembly.</p>
+          </div>
+          <div class="evidence-row"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px"><polyline points="9 18 15 12 9 6"/></svg>View evidence &amp; supporting quotes (3)</div>
+        </div>
+      </div>
+
+      <div class="msg user">
+        <div class="avatar user">U</div>
+        <div class="bubble-user">How is it different from prompt engineering?<span class="time">13:18</span></div>
+      </div>
+
+      <div class="msg">
+        <div class="avatar assistant">R</div>
+        <div>
+          <div class="answer">
+            <p>Prompt engineering focuses on crafting the instruction or query to elicit the desired behavior. Context engineering is the broader discipline of what information is provided, how it's structured, and how it changes over time — designing the whole environment the request is interpreted in.</p>
+          </div>
+          <div class="live-note"><svg class="icon" viewBox="0 0 24 24" style="width:12px;height:12px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>Answered using live web search — not from your retrieved papers</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-bar">
+      <span class="placeholder">Ask a research question&#8230;</span>
+      <div class="input-right">
+        <span class="kbd">&#8984;&#8629;</span>
+        <div class="send-btn"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px;stroke:var(--cream)"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKSPACE -->
+  <div class="workspace">
+    <div class="dropdown-label">Select search run</div>
+    <div class="dropdown">
+      <span>Search #1 (13:18:43): context engineering</span>
+      <svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active">Papers</div>
+      <div class="tab">Concept graph</div>
+      <div class="tab">Compare searches</div>
+    </div>
+
+    <div class="ws-header-row">
+      <span class="label">Top 5 papers for: context engineering</span>
+      <span class="export-btn"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export BibTeX</span>
+    </div>
+
+    <div class="paper-card">
+      <div class="paper-title-row">
+        <div class="paper-title">Lost in the Middle: How Language Models Use Long Contexts</div>
+        <svg class="icon" viewBox="0 0 24 24" style="color:var(--hairline-strong)"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="tag-row">
+        <span class="chip">2307.03172v1</span>
+        <span class="chip">cs.CL</span>
+        <span class="chip-score">0.572</span>
+      </div>
+      <div class="abstract">We study how language models utilize long input contexts and find that accuracy degrades when relevant information is placed in the middle, with a consistent "lost in the middle" effect across positions&#8230;</div>
+      <div class="link-row"><span>abstract &#9662;</span><span>pdf &#8599;</span></div>
+
+      <div class="section-label">Screening state</div>
+      <div class="pill-row">
+        <div class="pill active">Keep</div>
+        <div class="pill">Maybe</div>
+        <div class="pill">Skip</div>
+      </div>
+      <div class="notes-field">Strong empirical study. Useful for understanding position bias in long-context LLMs.</div>
+
+      <div class="collapsible-head">
+        <span>Citation chaining (Semantic Scholar)</span>
+        <svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px"><polyline points="18 15 12 9 6 15"/></svg>
+      </div>
+      <div style="margin-bottom:14px;">
+        <span class="fetch-btn"><svg class="icon" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.5-1.5"/></svg>Fetch citations &amp; references</span>
+      </div>
+      <div class="chain-cols">
+        <div>
+          <div class="subgroup-title">References (3)</div>
+          <div class="paper-row"><span>Attention Is All You Need</span><span class="add-link">+ Add</span></div>
+          <div class="paper-row"><span>Rethinking Transformer Positional Encoding</span><span class="add-link">+ Add</span></div>
+          <div class="paper-row"><span>Long Range Arena: A Benchmark for Efficient LMs</span><span class="add-link">+ Add</span></div>
+        </div>
+        <div>
+          <div class="subgroup-title">Citing papers (3)</div>
+          <div class="paper-row"><span>Needle In A Haystack: Pressure Testing LLMs</span><span class="add-link">+ Add</span></div>
+          <div class="paper-row"><span>RULER: What's the Real Context Window?</span><span class="add-link">+ Add</span></div>
+          <div class="paper-row"><span>Don't Trust, Verify: Strong Baselines for LLMs</span><span class="add-link">+ Add</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapsed-row"><span class="num">2</span><span class="title">Large Language Models as Knowledge Bases</span><svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px"><polyline points="9 18 15 12 9 6"/></svg></div>
+    <div class="collapsed-row"><span class="num">3</span><span class="title">ReAct: Synergizing Reasoning and Acting in LLMs</span><svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px"><polyline points="9 18 15 12 9 6"/></svg></div>
+    <div class="collapsed-row"><span class="num">4</span><span class="title">Self-Refine: Iterative Refinement with LLMs</span><svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px"><polyline points="9 18 15 12 9 6"/></svg></div>
+  </div>
+
+</div>
+</body>
+</html>

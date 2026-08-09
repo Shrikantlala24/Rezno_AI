@@ -1,0 +1,84 @@
+[server]
+enableStaticServing = true
+
+[[theme.fontFaces]]
+family = "Geist Pixel"
+url = "app/static/GeistPixel-Regular-VariableFont_ELSH.ttf"
+style = "normal"
+weight = "100 900"
+
+[theme]
+font = "Geist Pixel"
+headingFont = "Geist Pixel"
+codeFont = "Geist Pixel"
+
+baseFontSize = 14
+baseFontWeight = 400
+codeFontSize = "0.875rem"
+codeFontWeight = 400
+
+primaryColor = "#17171C"
+
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F7F7F5"
+
+textColor = "#17171C"
+linkColor = "#185C4D"
+linkUnderline = false
+
+borderColor = "#E4E4E7"
+dataframeBorderColor = "#E4E4E7"
+
+baseRadius = "0.75rem"
+buttonRadius = "0.5rem"
+
+showWidgetBorder = false
+showSidebarBorder = true
+
+chartCategoricalColors = [
+    "#003C33",
+    "#5E7C6D",
+    "#1863DC",
+    "#C96A4A",
+    "#8A6FB5",
+    "#777783"
+]
+
+chartSequentialColors = [
+    "#EDFCE9",
+    "#C9DED7",
+    "#7FAE9D",
+    "#3F7666",
+    "#003C33"
+]
+
+chartDivergingColors = [
+    "#C96A4A",
+    "#F1D7CD",
+    "#F7F7F5",
+    "#C9DED7",
+    "#003C33"
+]
+
+[theme.sidebar]
+font = "Geist Pixel"
+headingFont = "Geist Pixel"
+codeFont = "Geist Pixel"
+
+primaryColor = "#17171C"
+
+backgroundColor = "#FBFBFA"
+secondaryBackgroundColor = "#F3F3F1"
+
+textColor = "#17171C"
+linkColor = "#185C4D"
+linkUnderline = false
+
+borderColor = "#E4E4E7"
+dataframeBorderColor = "#E4E4E7"
+
+baseRadius = "0.75rem"
+buttonRadius = "0.5rem"
+
+showWidgetBorder = false
+showSidebarBorder = true

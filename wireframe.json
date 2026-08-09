@@ -1,0 +1,188 @@
+{
+  "version": 3,
+  "app_title": "Research Agent Reflex Plan",
+  "nav": {
+    "placement": "none",
+    "items": []
+  },
+  "pages": [
+    {
+      "id": "page-0a39a385",
+      "name": "Research Agent",
+      "route": "/",
+      "item_ref": {
+        "index": 0,
+        "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+      },
+      "blocks": [
+        {
+          "id": "brand_header",
+          "type": "hero",
+          "label": "Brand header",
+          "hint": "Research Agent brand, subtitle, session status, and light/dark toggle",
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 1,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "conversation_header",
+          "type": "chat",
+          "label": "Conversation rail header",
+          "hint": "Conversation title and grounded synthesis caption",
+          "x": 0,
+          "y": 1,
+          "w": 4,
+          "h": 1,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "workspace_header",
+          "type": "text",
+          "label": "Workspace header",
+          "hint": "Research workspace title, meta caption, and settings trigger",
+          "x": 4,
+          "y": 1,
+          "w": 8,
+          "h": 1,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "message_list",
+          "type": "chat",
+          "label": "Message list",
+          "hint": "Empty state, user/assistant turns, evidence expanders, unsourced badges, and Thinking card",
+          "x": 0,
+          "y": 2,
+          "w": 4,
+          "h": 7,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "run_status",
+          "type": "text",
+          "label": "Run status strip",
+          "hint": "Paper, node, edge counts or waiting state with degraded-state alert",
+          "x": 4,
+          "y": 2,
+          "w": 8,
+          "h": 1,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "workspace_tabs",
+          "type": "tabs",
+          "label": "Workspace tabs",
+          "hint": "Papers, Concept graph, and Compare tab bar with independently scrolling content",
+          "x": 4,
+          "y": 3,
+          "w": 8,
+          "h": 1,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "papers_content",
+          "type": "list",
+          "label": "Papers tab content",
+          "hint": "Ranked paper rows, expanded details, screening, notes, citation chaining, and BibTeX download",
+          "x": 4,
+          "y": 4,
+          "w": 8,
+          "h": 4,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "graph_content",
+          "type": "toolbar",
+          "label": "Concept graph tab content",
+          "hint": "Interactive paper/concept node-link graph with toolbar and PDF click behavior",
+          "x": 4,
+          "y": 8,
+          "w": 8,
+          "h": 4,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "compare_content",
+          "type": "kpi",
+          "label": "Compare tab content",
+          "hint": "Run selectors, shared paper metrics, and shared concept summaries",
+          "x": 0,
+          "y": 12,
+          "w": 8,
+          "h": 4,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "composer",
+          "type": "form",
+          "label": "Composer",
+          "hint": "Fixed research question textarea and Send button",
+          "x": 0,
+          "y": 9,
+          "w": 4,
+          "h": 2,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        },
+        {
+          "id": "settings_popover",
+          "type": "form",
+          "label": "Settings popover",
+          "hint": "Pipeline controls, response length, session stats, citation IDs, and clear session action",
+          "x": 8,
+          "y": 12,
+          "w": 4,
+          "h": 4,
+          "item_ref": {
+            "index": 0,
+            "text": "Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior."
+          },
+          "type_source": "palette"
+        }
+      ],
+      "deleted_ids": []
+    }
+  ],
+  "attached_to_plan": false
+}

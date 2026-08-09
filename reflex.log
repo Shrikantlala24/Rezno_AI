@@ -1,0 +1,15 @@
+Warning: Windows Subsystem for Linux (WSL) is recommended for improving initial
+install times.
+───────────────────────────── Starting Reflex App ─────────────────────────────
+Warning: Event handler on_change expects (<class 'float'>) -> () but got 
+(<class 'str'>) -> () as annotated in ConversationState.set_per_query instead. 
+This may lead to unexpected behavior but is intentionally ignored for 
+on_change.
+Warning: Event handler on_change expects (<class 'float'>) -> () but got 
+(<class 'str'>) -> () as annotated in ConversationState.set_top_k instead. This
+may lead to unexpected behavior but is intentionally ignored for on_change.
+Warning: Event handler on_change expects (<class 'float'>) -> () but got 
+(<class 'str'>) -> () as annotated in ConversationState.set_num_queries 
+instead. This may lead to unexpected behavior but is intentionally ignored for 
+on_change.
+Compiling: ---------------------------------------- 100% 18/17 0:00:01

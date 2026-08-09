@@ -1,0 +1,5 @@
+## Research Agent Reflex Plan
+- [x] Build the full-height Research Agent shell with the specification’s neutral token system, light/dark theme toggle, responsive 30/70 conversation/workspace layout, fixed desktop regions, and mobile stacking behavior.
+- [x] Build the conversation rail with empty state, chat message rendering, evidence or unsourced footers, in-flight Thinking status with progress log, fixed composer, submit orchestration, and auto-scroll behavior wired to the existing research interfaces when available.
+- [x] Build the research workspace with run-status strip, settings popover, Papers tab with BibTeX download, screening controls, notes, citation chaining actions, and session-scoped run/paper state.
+- [x] Build the Concept graph and Compare tabs with interactive graph presentation controls, paper PDF click behavior, empty/degraded states, run comparison dropdowns, shared metrics, and complete responsive polish.

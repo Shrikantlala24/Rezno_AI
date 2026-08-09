@@ -1,0 +1,36 @@
+# Ignore Python bytecode & caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Ignore virtual environments
+.venv/
+venv/
+env/
+
+# Ignore Reflex compile & build artifacts
+.web/
+reflex.log
+*.log
+
+# Ignore legacy files & Streamlit artifacts
+app.py
+.streamlit/
+st_err.log
+st_out.log
+
+# Ignore IDE & Git
+.git/
+.gitignore
+.vscode/
+.idea/
+.claude/
+.agents/
+
+# Ignore docs & design source files not needed in production container
+Docs/
+design/
+wireframe.json
+plan.md
+plan_query.py.bak

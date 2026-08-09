@@ -1,0 +1,444 @@
+/* =========================================================================
+   Research Agent — UI refinement layer
+   =========================================================================
+   Use this after st.set_page_config().
+
+   Design goals:
+   - preserve Streamlit's native sidebar/header controls
+   - never hide the sidebar collapse/expand affordance
+   - reduce default widget chrome
+   - maintain a 3-zone research-product hierarchy
+   - make the right chat rail visually subordinate
+   ========================================================================= */
+
+:root {
+    --ra-ink: #17171c;
+    --ra-ink-2: #27272d;
+    --ra-muted: #777783;
+    --ra-line: #e4e4e7;
+    --ra-line-soft: #efeff1;
+    --ra-bg: #ffffff;
+    --ra-soft: #f7f7f5;
+    --ra-sidebar: #fbfbfa;
+    --ra-green: #003c33;
+    --ra-green-soft: #edfce9;
+    --ra-blue: #1863dc;
+    --ra-coral: #c96a4a;
+}
+
+/* ------------------------------- App shell ------------------------------ */
+
+.stApp {
+    background: var(--ra-bg);
+}
+
+.block-container {
+    max-width: 1680px !important;
+    padding: 1.5rem 2rem 7rem !important;
+}
+
+/* Keep Streamlit's top chrome and sidebar controls available. */
+[data-testid="stHeader"] {
+    background: transparent !important;
+    height: 2.75rem !important;
+}
+
+[data-testid="stToolbar"] {
+    visibility: visible !important;
+    right: 0.75rem !important;
+}
+
+section[data-testid="stSidebar"] {
+    background: var(--ra-sidebar);
+    border-right: 1px solid var(--ra-line);
+}
+
+/* Do not hide the sidebar collapse/expand button. */
+button[data-testid="stBaseButton-headerNoPadding"] {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* ----------------------------- Typography -------------------------------- */
+
+html,
+body,
+.stApp,
+.stApp * {
+    font-family:
+        "GeistPixel",
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.035em !important;
+    color: var(--ra-ink) !important;
+}
+
+p {
+    color: var(--ra-ink-2);
+}
+
+/* ------------------------------ Header ----------------------------------- */
+
+.ra-header {
+    min-height: 4.25rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0 1.15rem;
+    border-bottom: 1px solid var(--ra-line);
+}
+
+.ra-title {
+    font-size: 1.15rem;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.045em;
+}
+
+.ra-kicker {
+    margin-top: 0.45rem;
+    color: var(--ra-muted);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ra-status {
+    color: var(--ra-muted);
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ra-status-dot {
+    display: inline-block;
+    width: 0.35rem;
+    height: 0.35rem;
+    margin-right: 0.35rem;
+    border-radius: 50%;
+    background: #4b8d63;
+    box-shadow: 0 0 0 3px #eef7f0;
+}
+
+/* ------------------------------ Sidebar --------------------------------- */
+
+section[data-testid="stSidebar"] > div {
+    padding: 1.25rem 1rem !important;
+}
+
+.ra-side-label {
+    color: var(--ra-muted);
+    font-size: 0.57rem;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 1.25rem 0 0.65rem;
+}
+
+/* Native metric treatment: remove card appearance. */
+[data-testid="stMetric"] {
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0.7rem 0 !important;
+}
+
+[data-testid="stMetricLabel"] {
+    color: var(--ra-muted) !important;
+    font-size: 0.57rem !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: var(--ra-ink) !important;
+    font-size: 1.05rem !important;
+    font-weight: 400 !important;
+}
+
+/* ------------------------------ Buttons --------------------------------- */
+
+.stButton > button,
+.stDownloadButton > button {
+    min-height: 2.1rem !important;
+    border: 1px solid var(--ra-line) !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    color: var(--ra-ink) !important;
+    box-shadow: none !important;
+    transition:
+        background-color 140ms ease,
+        border-color 140ms ease,
+        transform 140ms ease !important;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover {
+    border-color: #b9b9c0 !important;
+    background: var(--ra-soft) !important;
+    transform: translateY(-1px);
+}
+
+.stButton > button:focus-visible,
+.stDownloadButton > button:focus-visible {
+    outline: 2px solid rgba(24, 99, 220, 0.22) !important;
+    outline-offset: 2px !important;
+}
+
+/* ------------------------------ Inputs ---------------------------------- */
+
+.stTextInput input,
+.stTextArea textarea,
+[data-baseweb="select"] > div {
+    border-color: var(--ra-line) !important;
+    background: #fff !important;
+    color: var(--ra-ink) !important;
+    box-shadow: none !important;
+}
+
+.stTextInput input:focus,
+.stTextArea textarea:focus {
+    border-color: #a5a5ad !important;
+    box-shadow: 0 0 0 3px rgba(23, 23, 28, 0.055) !important;
+}
+
+/* ------------------------------- Tabs ----------------------------------- */
+
+button[data-testid="stTab"] {
+    color: var(--ra-muted) !important;
+    font-size: 0.68rem !important;
+}
+
+button[data-testid="stTab"][aria-selected="true"] {
+    color: var(--ra-ink) !important;
+}
+
+/* -------------------------- Research surfaces --------------------------- */
+
+.ra-section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0 0.65rem;
+    border-bottom: 1px solid var(--ra-line);
+}
+
+.ra-section-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.ra-section-meta {
+    color: var(--ra-muted);
+    font-size: 0.58rem;
+}
+
+/* Paper rows should feel like an editorial research list. */
+.ra-paper-row {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--ra-line-soft);
+}
+
+.ra-paper-index {
+    color: var(--ra-muted);
+    font-size: 0.56rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ra-paper-title {
+    margin-top: 0.2rem;
+    color: var(--ra-ink);
+    font-size: 0.78rem;
+    line-height: 1.4;
+}
+
+.ra-paper-meta {
+    margin-top: 0.25rem;
+    color: var(--ra-muted);
+    font-size: 0.58rem;
+    line-height: 1.5;
+}
+
+/* --------------------------- Markdown response -------------------------- */
+
+.ra-response {
+    max-width: 48rem;
+    color: var(--ra-ink-2);
+}
+
+.ra-response h1 {
+    margin: 0 0 1rem !important;
+    font-size: 1.45rem !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+}
+
+.ra-response h2 {
+    margin: 1.5rem 0 0.55rem !important;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--ra-line-soft);
+    font-size: 1rem !important;
+    line-height: 1.35 !important;
+    font-weight: 500 !important;
+}
+
+.ra-response h3 {
+    margin: 1.15rem 0 0.4rem !important;
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    font-weight: 500 !important;
+}
+
+.ra-response p,
+.ra-response li {
+    font-size: 0.76rem;
+    line-height: 1.72;
+}
+
+.ra-response ul,
+.ra-response ol {
+    padding-left: 1.25rem;
+    margin: 0.55rem 0 0.9rem;
+}
+
+.ra-response li {
+    margin: 0.2rem 0;
+}
+
+.ra-response blockquote {
+    margin: 1rem 0;
+    padding: 0.65rem 0.85rem;
+    border-left: 2px solid var(--ra-green);
+    background: var(--ra-soft);
+    color: var(--ra-muted);
+}
+
+.ra-response code {
+    padding: 0.12rem 0.3rem;
+    border-radius: 0.3rem;
+    background: #f1f1ef;
+    color: var(--ra-ink);
+}
+
+.ra-response pre {
+    margin: 0.9rem 0;
+    padding: 0.85rem 1rem;
+    overflow-x: auto;
+    border: 1px solid var(--ra-line);
+    border-radius: 0.65rem;
+    background: #f7f7f5;
+}
+
+.ra-response pre code {
+    padding: 0;
+    background: transparent;
+}
+
+.ra-response table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.68rem;
+}
+
+.ra-response th,
+.ra-response td {
+    padding: 0.55rem 0.6rem;
+    border-bottom: 1px solid var(--ra-line);
+    text-align: left;
+}
+
+.ra-response th {
+    color: var(--ra-muted);
+    font-weight: 500;
+}
+
+/* ------------------------------- Chat ----------------------------------- */
+
+.ra-chat-shell {
+    min-height: calc(100vh - 9rem);
+    border-left: 1px solid var(--ra-line);
+    padding-left: 1.25rem;
+}
+
+.ra-chat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--ra-line);
+}
+
+.ra-chat-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.ra-chat-meta {
+    color: var(--ra-muted);
+    font-size: 0.56rem;
+}
+
+/* Keep the inline chat input compact. */
+[data-testid="stChatInput"] {
+    margin-top: 0.75rem !important;
+}
+
+[data-testid="stChatInput"] > div {
+    border: 1px solid var(--ra-line) !important;
+    border-radius: 1rem !important;
+    background: rgba(255,255,255,0.97) !important;
+    box-shadow: 0 10px 32px rgba(23,23,28,0.07) !important;
+}
+
+/* ------------------------------- Graph ---------------------------------- */
+
+.ra-graph-frame {
+    border: 1px solid var(--ra-line);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(0,60,51,0.035), transparent 45%),
+        #fcfcfb;
+}
+
+/* ------------------------------ Expander -------------------------------- */
+
+div[data-testid="stExpander"] {
+    border-color: var(--ra-line) !important;
+    border-radius: 0.65rem !important;
+    box-shadow: none !important;
+    background: #fff !important;
+}
+
+/* ------------------------------ Responsive ------------------------------ */
+
+@media (max-width: 1100px) {
+    .block-container {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+
+    .ra-chat-shell {
+        padding-left: 1rem;
+    }
+}
+
+@media (max-width: 850px) {
+    .ra-chat-shell {
+        border-left: 0;
+        border-top: 1px solid var(--ra-line);
+        padding: 1rem 0 0;
+        margin-top: 1rem;
+        min-height: auto;
+    }
+}

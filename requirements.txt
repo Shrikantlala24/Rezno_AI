@@ -1,0 +1,24 @@
+# Research Agent — production dependencies
+
+# arXiv search
+arxiv
+
+# Ranking (MiniLM embeddings + numpy cosine)
+sentence-transformers
+numpy
+
+# LLM (query expansion, routing, extraction, synthesis)
+langchain
+langchain-google-genai
+langchain-anthropic
+python-dotenv
+
+# Schemas
+pydantic
+
+# Reflex UI Framework
+reflex[db]==0.9.6.post2
+
+# Dev / Code Quality
+black
+flake8
