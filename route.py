@@ -38,9 +38,17 @@ def route(message: str, papers: List, history: List | None = None) -> Tuple[str,
         return "new_search", False
 
     normalized = message.lower().strip()
-    if re.search(r"\b(paper|papers|these|them|first|second|compare|difference|abstract|finding|result)\b", normalized):
+
+    # Explicit override: user requested a new search
+    if re.search(r"\b(new search|do a new search|search for|search arxiv|find papers|look for|retrieve|get papers)\b", normalized):
+        return "new_search", False
+
+    # Explicit grounded follow-up signals referencing loaded paper indices/titles
+    if re.search(r"\b(paper \d|papers \d|first paper|second paper|third paper|these papers|this paper|loaded papers|differ|abstract of)\b", normalized):
         return "follow_up_grounded", False
-    if re.match(r"^(what is|what are|explain|define|how does)\b", normalized):
+
+    # Explicit general conceptual question
+    if re.match(r"^(what is|what are|explain|define|how does)\b", normalized) and not re.search(r"\b(paper|papers)\b", normalized):
         return "follow_up_general", False
 
     titles = "\n".join(f"- [{p.arxiv_id}] {p.title}" for p in papers[:10])
@@ -56,5 +64,5 @@ def route(message: str, papers: List, history: List | None = None) -> Tuple[str,
         )
         return res.intent, False
     except Exception:
-        # On router failure, default to follow_up_general with fallback flag set to True
-        return "follow_up_general", True
+        # Default to new_search if unclear/failed when explicit keywords aren't present
+        return "new_search", True

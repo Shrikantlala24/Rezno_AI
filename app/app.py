@@ -17,12 +17,11 @@ def index() -> rx.Component:
             ),
             class_name="mx-auto flex w-full max-w-[1680px] flex-col px-4 pb-6 pt-[10px] min-[900px]:h-full min-[900px]:overflow-hidden min-[900px]:px-[26px] min-[900px]:pb-0",
         ),
-        class_name=ThemeState.root_class,
+        class_name="min-h-screen w-full bg-[var(--background)] text-[var(--foreground)] antialiased min-[900px]:h-screen min-[900px]:overflow-hidden",
     )
 
 
 app = rx.App(
-    theme=rx.theme(appearance="light"),
     stylesheets=["/tokens.css"],
 )
 app.add_page(index, route="/")

@@ -7,6 +7,10 @@ class ThemeState(rx.State):
     dark: bool = False
 
     @rx.var
+    def theme_appearance(self) -> str:
+        return "dark" if self.dark else "light"
+
+    @rx.var
     def root_class(self) -> str:
         base = "min-h-screen w-full bg-[var(--background)] text-[var(--foreground)] antialiased min-[900px]:h-screen min-[900px]:overflow-hidden"
         return f"dark {base}" if self.dark else base

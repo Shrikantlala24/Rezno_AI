@@ -5,12 +5,11 @@ from app.states.theme_state import ThemeState
 
 def theme_toggle() -> rx.Component:
     return rx.el.button(
-        rx.cond(
-            ThemeState.dark,
-            rx.icon("sun", class_name="h-4 w-4"),
-            rx.icon("moon", class_name="h-4 w-4"),
+        rx.color_mode_cond(
+            light=rx.icon("moon", class_name="h-4 w-4"),
+            dark=rx.icon("sun", class_name="h-4 w-4"),
         ),
-        on_click=ThemeState.toggle_theme,
+        on_click=rx.toggle_color_mode,
         title="Toggle theme",
         class_name="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] transition-all duration-150 hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)] focus-visible:outline-hidden focus-visible:ring-[3px] focus-visible:ring-[var(--ring)]",
     )

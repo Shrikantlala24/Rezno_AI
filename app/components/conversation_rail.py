@@ -79,9 +79,9 @@ def composer() -> rx.Component:
             rx.el.textarea(
                 placeholder="Ask a research question…",
                 default_value=ConversationState.composer_text,
-                on_change=ConversationState.set_composer_text.debounce(250),
-                rows="4",
-                class_name="min-h-[88px] w-full resize-y rounded-[var(--radius-md)] border-0 bg-[var(--secondary)] p-3 text-sm leading-relaxed text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:bg-[var(--card)] focus:outline-hidden focus:ring-1 focus:ring-[var(--border)]",
+                on_change=ConversationState.set_composer_text.debounce(200),
+                rows="3",
+                class_name="min-h-[76px] w-full resize-none rounded-[var(--radius-md)] border-0 bg-[var(--secondary)] p-3 text-sm leading-relaxed text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:bg-[var(--card)] focus:outline-hidden focus:ring-1 focus:ring-[var(--border)]",
             ),
             rx.el.button(
                 rx.cond(

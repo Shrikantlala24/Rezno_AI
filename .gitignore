@@ -1,15 +1,41 @@
-assets/external/
+# Python
 *.py[cod]
-.states
-*.db
-.web
 __pycache__/
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Reflex build & runtime artifacts
 .web/
 .states/
-.pytest_cache/
-.git/
-.venv/
-node_modules/
-/app/__pycache__/
-venv
+*.db
+reflex.lock/
+reflex.log
+
+# Secrets — NEVER commit API keys
 .env
+
+# Logs & test scratch files
+*.log
+o.log
+e.log
+st_err.log
+st_out.log
+test_arxiv_endpoints.py
+
+# Assets that are external / generated
+assets/external/
+
+# Node / Bun
+node_modules/
+
+# Git itself
+.git/
+
+# IDE
+.vscode/
+.idea/

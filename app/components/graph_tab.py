@@ -35,14 +35,6 @@ def graph_toolbar() -> rx.Component:
             class_name="flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--secondary)] p-[3px]",
         ),
         rx.el.div(
-            rx.el.span(
-                GraphState.zoom_label,
-                class_name="w-[42px] text-center text-xs uppercase tracking-[0.08em] text-[var(--muted-foreground)]",
-            ),
-            control_button("zoom-out", "Zoom out", GraphState.zoom_out),
-            control_button("zoom-in", "Zoom in", GraphState.zoom_in),
-            control_button("crosshair", "Reset view", GraphState.reset_view),
-            control_button("refresh-cw", "Re-layout", GraphState.relayout),
             control_button(
                 "download", "Download graph", GraphState.download_graph
             ),

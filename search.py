@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 Progress = Optional[Callable[[str], None]]
 
-ARXIV_HTTP_TIMEOUT = 15.0
+ARXIV_HTTP_TIMEOUT = 25.0
 
 
 class _TimeoutSession(requests.Session):
@@ -32,7 +32,7 @@ class _TimeoutSession(requests.Session):
         return super().request(method, url, **kwargs)
 
 
-_CLIENT = arxiv.Client(page_size=100, delay_seconds=0.5, num_retries=1)
+_CLIENT = arxiv.Client(page_size=100, delay_seconds=1.0, num_retries=2)
 _CLIENT._session = _TimeoutSession()
 
 
@@ -112,7 +112,7 @@ def search(
     if on_progress:
         on_progress(f"Searching arXiv ({total} queries in parallel)")
 
-    max_workers = min(4, total) if total > 0 else 1
+    max_workers = min(2, total) if total > 0 else 1
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         future_to_query = {
             executor.submit(_search_one, q, per_query): q for q in queries
