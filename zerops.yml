@@ -2,7 +2,7 @@
 # Docs: https://docs.zerops.io/python/how-to/build-pipeline
 
 zerops:
-  - setup: rezno-ai
+  - setup: python
 
     # ── BUILD ────────────────────────────────────────────────────────────────
     build:
