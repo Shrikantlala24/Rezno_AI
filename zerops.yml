@@ -5,32 +5,27 @@ zerops:
   - setup: python
 
     # ── BUILD ────────────────────────────────────────────────────────────────
+    # Build phase: just validate deps and deploy source.
+    # Frontend (Next.js) is compiled by reflex at runtime start — no Bun needed here.
     build:
-      # Ubuntu required so we can curl-install Bun (Reflex frontend runtime)
       base: python@3.11
       os: ubuntu
 
       prepareCommands:
         - |
-          # 1. Install Bun (needed by Reflex to compile the Next.js frontend)
-          curl -fsSL https://bun.sh/install | bash
-          ln -s "$HOME/.bun/bin/bun" /usr/local/bin/bun
+          # Validate requirements exist and install into a venv
+          # Note: prepareCommands run in /home/zerops; source code is at /build/source
+          python3 -m venv /home/zerops/venv
+          /home/zerops/venv/bin/pip install -r /build/source/requirements.txt
 
-          # 2. Install all Python dependencies (includes reflex)
-          pip install -r requirements.txt
-
-          # 3. Pre-compile the Reflex / Next.js frontend bundle
-          reflex export --frontend-only --no-zip
-
-      # Deploy the entire project directory.
-      # Dev-only / heavy paths are excluded via .deployignore
+      # Deploy the full source tree; .deployignore strips dev/legacy paths
       deployFiles: .
 
-      # Copy requirements.txt to runtime prepare container for pip install there
+      # Copy requirements.txt to runtime prepare container
       addToRunPrepare:
         - requirements.txt
 
-      # Cache pip downloads between builds to speed up subsequent deploys
+      # Cache pip downloads between builds
       cache: ~/.cache/pip
 
     # ── RUN ──────────────────────────────────────────────────────────────────
@@ -40,12 +35,14 @@ zerops:
 
       prepareCommands:
         - |
-          # Install Bun for Next.js frontend serving at runtime
+          # 1. Install Bun (Reflex uses it to compile/serve the Next.js frontend)
+          #    No root needed — bun installs to $HOME/.bun
           curl -fsSL https://bun.sh/install | bash
-          ln -s "$HOME/.bun/bin/bun" /usr/local/bin/bun
 
-          # Install Python runtime dependencies
-          pip install -r requirements.txt
+          # 2. Create isolated Python environment and install all deps
+          #    requirements.txt is copied here by addToRunPrepare (in /home/zerops/)
+          python3 -m venv /home/zerops/venv
+          /home/zerops/venv/bin/pip install -r /home/zerops/requirements.txt
 
       ports:
         - port: 8000   # Reflex Python backend + WebSocket
@@ -56,9 +53,11 @@ zerops:
       envVariables:
         PORT: "8000"
         FRONTEND_PORT: "3000"
-        # GOOGLE_API_KEY must be set in Zerops GUI → Service → Environment Variables
+        # Set GOOGLE_API_KEY in Zerops GUI → Service → Environment Variables
 
-      start: reflex run --env prod
+      # Add bun to PATH, cd into deployed app dir, then start reflex
+      # reflex run --env prod will compile the frontend on first start using bun
+      start: bash -c 'export PATH="$HOME/.bun/bin:$PATH" && cd /var/www && /home/zerops/venv/bin/reflex run --env prod'
 
       healthCheck:
         httpGet:
