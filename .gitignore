@@ -1,3 +1,5 @@
+.web
+.states
 # Python
 *.py[cod]
 __pycache__/
