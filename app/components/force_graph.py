@@ -13,7 +13,7 @@ from typing import Any
 import reflex as rx
 
 
-class ForceGraph2D(rx.Component):
+class ForceGraph2D(rx.NoSSRComponent):
     """Wraps the default export from react-force-graph-2d."""
 
     library = "react-force-graph-2d"
