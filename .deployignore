@@ -15,7 +15,7 @@ reflex.lock/
 reflex.log
 
 # Legacy / Streamlit files (not part of Reflex app)
-app.py
+/app.py
 .streamlit/
 rezno/
 rezno_app/

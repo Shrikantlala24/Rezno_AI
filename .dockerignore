@@ -15,7 +15,7 @@ reflex.log
 *.log
 
 # Ignore legacy files & Streamlit artifacts
-app.py
+/app.py
 .streamlit/
 st_err.log
 st_out.log
