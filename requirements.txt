@@ -13,8 +13,10 @@ langchain-google-genai
 langchain-anthropic
 python-dotenv
 
-# Schemas
+# Schemas & DB
 pydantic
+greenlet
+sqlalchemy[asyncio]
 
 # Reflex UI Framework
 reflex[db]==0.9.6.post2

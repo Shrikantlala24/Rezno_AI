@@ -17,6 +17,8 @@ dependencies = [
     "python-dotenv",
     # Schemas
     "pydantic",
+    "greenlet",
+    "sqlalchemy[asyncio]",
     # UI
     "reflex[db]==0.9.6.post2",
 ]
