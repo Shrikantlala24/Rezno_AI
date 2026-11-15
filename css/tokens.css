@@ -1,140 +1,159 @@
-/* Research Agent — Token System (Light default, .dark override) */
+/* =========================================================================
+   Rezno AI — Design System & Semantic Tokens
+   An authoritative, quiet, scholarly design language for literature intelligence.
+   ========================================================================= */
 
 :root {
-  --radius: 0.625rem;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  /* Surface & Canvas (Light Theme: Warm Archival Paper) */
+  --bg-canvas: #fbfbfa;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f4f4f2;
+  --bg-overlay: rgba(17, 24, 39, 0.4);
 
-  --background: hsl(97 4% 100%);
-  --foreground: oklch(0.241 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.241 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.241 0.005 285.823);
-  --primary: oklch(0.31 0.006 285.885);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.31 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.652 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.31 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.85 0.004 286.32);
-  --input: oklch(0.85 0.004 286.32);
-  --ring: oklch(0.605 0.015 286.067);
+  /* Ink & Typography */
+  --text-main: #14171a;
+  --text-muted: #4e555f;
+  --text-faint: #737b88;
+  --text-inverse: #ffffff;
 
-  /* App-specific accents */
-  --graph-paper: #003c33;
-  --graph-concept: #5f7f70;
-  --graph-similar: #c6c7c4;
-  --graph-mentions: #d9dcd8;
-  --mark-coral: #ff7759;
-  --link: #1863dc;
+  /* Borders & Dividers */
+  --border-subtle: #e5e6e3;
+  --border-strong: #d2d4cf;
+  --border-focus: #0d5c52;
 
-  --shadow-soft: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-float: 0 8px 24px rgb(0 0 0 / 0.06);
+  /* Scholarly Semantic Accents */
+  --accent-pine: #0d5c52;
+  --accent-pine-light: #e6f3f0;
+  --accent-pine-border: #99cfc4;
+
+  --accent-coral: #b4341b;
+  --accent-coral-light: #fbeae6;
+
+  --accent-amber: #92400e;
+  --accent-amber-light: #fef3c7;
+
+  --accent-blue: #1d4ed8;
+  --accent-blue-light: #eff6ff;
+
+  /* Graph Colors */
+  --graph-paper-node: #0d5c52;
+  --graph-concept-node: #52637a;
+  --graph-edge-mentions: rgba(13, 92, 82, 0.25);
+  --graph-edge-similar: rgba(100, 116, 139, 0.35);
+
+  /* Geometry & Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-pill: 9999px;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+
+  /* Font Stacks */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-serif: "Newsreader", "Charter", "Georgia", serif;
 }
 
 .dark {
-  --background: #000000;
-  --foreground: oklch(0.985 0 0);
-  --card: #0f0f0f;
-  --card-foreground: oklch(0.985 0 0);
-  --popover: #000000;
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.92 0.004 286.32);
-  --primary-foreground: #0f0f0f;
-  --secondary: #111111;
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: #111111;
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: #111111;
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.552 0.016 285.938);
+  /* Surface & Canvas (Dark Theme: Deep Academic Slate) */
+  --bg-canvas: #0c1017;
+  --bg-surface: #141923;
+  --bg-subtle: #1c222f;
+  --bg-overlay: rgba(0, 0, 0, 0.65);
 
-  --graph-paper: #1a7a6e;
-  --graph-concept: #7c5cbf;
-  --graph-similar: #4a4a50;
-  --graph-mentions: #3a4b44;
-  --link: #6fa2ff;
-  --shadow-float: 0 8px 24px rgb(0 0 0 / 0.6);
+  /* Ink & Typography */
+  --text-main: #f0f3f6;
+  --text-muted: #9aa4b2;
+  --text-faint: #636e7b;
+  --text-inverse: #0c1017;
+
+  /* Borders & Dividers */
+  --border-subtle: #242c3b;
+  --border-strong: #333d4e;
+  --border-focus: #2dd4bf;
+
+  /* Scholarly Semantic Accents */
+  --accent-pine: #2dd4bf;
+  --accent-pine-light: rgba(45, 212, 191, 0.12);
+  --accent-pine-border: rgba(45, 212, 191, 0.3);
+
+  --accent-coral: #fb7185;
+  --accent-coral-light: rgba(251, 113, 133, 0.12);
+
+  --accent-amber: #fbbf24;
+  --accent-amber-light: rgba(251, 191, 36, 0.12);
+
+  --accent-blue: #60a5fa;
+  --accent-blue-light: rgba(96, 165, 250, 0.12);
+
+  /* Graph Colors */
+  --graph-paper-node: #2dd4bf;
+  --graph-concept-node: #94a3b8;
+  --graph-edge-mentions: rgba(45, 212, 191, 0.35);
+  --graph-edge-similar: rgba(148, 163, 184, 0.3);
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 14px 0 rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 30px 0 rgba(0, 0, 0, 0.5);
 }
 
-@font-face {
-  font-family: "GeistPixel";
-  src: url("../assets/GeistPixel.woff2") format("woff2"),
-       url("../assets/GeistPixel-Regular-VariableFont_ELSH.ttf") format("truetype");
-  font-weight: 100 900;
-  font-display: swap;
-}
-
+/* Base reset */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "GeistPixel", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }
 
 html, body {
-  background: var(--background);
-  color: var(--foreground);
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: var(--bg-canvas);
+  color: var(--text-main);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Thin scroller */
-.ra-scroll {
-  overscroll-behavior: contain;
+/* Tabular & Code elements */
+code, kbd, samp, pre, .font-mono {
+  font-family: var(--font-mono) !important;
+}
+
+/* Subtle, unobtrusive custom scrollbar */
+.scrollbar-subtle {
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in oklab, var(--muted-foreground) 45%, transparent) transparent;
+  scrollbar-color: var(--border-strong) transparent;
 }
 
-.ra-scroll::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+.scrollbar-subtle::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
 }
 
-.ra-scroll::-webkit-scrollbar-track {
+.scrollbar-subtle::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.ra-scroll::-webkit-scrollbar-thumb {
-  background: color-mix(in oklab, var(--muted-foreground) 40%, transparent);
-  border-radius: 999px;
+.scrollbar-subtle::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-pill);
 }
 
-/* Dot grid used behind empty canvases */
-.ra-dotgrid {
+/* Subtle canvas dot grid for clean graphing */
+.canvas-dotgrid {
   background-image: radial-gradient(
     circle at 1px 1px,
-    color-mix(in oklab, var(--foreground) 10%, transparent) 1px,
+    var(--border-strong) 1px,
     transparent 1px
   );
-  background-size: 16px 16px;
+  background-size: 20px 20px;
 }
-
-@keyframes ra-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.ra-fade-up {
-  animation: ra-fade-up 250ms ease-out both;
-}
-
-::selection {
-  background: color-mix(in oklab, var(--foreground) 18%, transparent);
-}
-

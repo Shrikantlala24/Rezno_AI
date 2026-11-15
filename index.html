@@ -3,165 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Research Agent — arXiv Retrieval, Ranking, Synthesis & Concept Graph</title>
+  <title>Rezno AI — Academic Literature Intelligence & Synthesis</title>
   <link rel="icon" href="assets/favicon.ico">
   
-  <!-- Token System & App Styles -->
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <div id="app-root">
-    <div class="ra-container">
+  <div class="app-shell" id="app-root">
+    <div class="app-container">
       
       <!-- Top Brand Header -->
-      <header class="ra-header">
-        <div class="ra-brand-group">
-          <div class="ra-brand-icon">
-            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M10 2v7.31L4.75 20.5a1.5 1.5 0 0 0 1.34 2.25h11.82a1.5 1.5 0 0 0 1.34-2.25L14 9.31V2"/>
-              <line x1="8.5" y1="2" x2="15.5" y2="2"/>
-              <line x1="14" y1="9.3" x2="10" y2="9.3"/>
-              <path d="M8.5 15h7"/>
+      <header class="app-header">
+        <div class="brand-block">
+          <div class="brand-symbol">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+              <path d="M6 6h10"/>
+              <path d="M6 10h10"/>
             </svg>
           </div>
-          <div class="ra-brand-titles">
-            <h1 class="ra-brand-title">Research Agent</h1>
-            <p class="ra-brand-subtitle">arXiv retrieval · ranking · synthesis · citation intelligence</p>
-          </div>
+          <span class="brand-wordmark">Rezno</span>
+          <span class="brand-descriptor">arXiv research agent</span>
         </div>
-        <div class="ra-header-actions">
-          <div class="ra-session-status">
-            <span class="ra-status-dot"></span>
-            <span>session active</span>
+
+        <div class="header-status-group">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span>arXiv connected</span>
           </div>
-          <button class="ra-icon-btn" id="ra-theme-toggle" title="Toggle theme">
+          <span id="session-run-counter" class="font-mono text-xs">2 queries</span>
+        </div>
+
+        <div class="header-controls">
+          <button class="btn-icon" id="theme-toggle-btn" title="Toggle color mode" aria-label="Toggle color mode">
             <!-- Icon injected by script -->
+          </button>
+          <button class="btn-icon" id="settings-toggle-btn" title="Pipeline settings" aria-label="Pipeline settings">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
           </button>
         </div>
       </header>
 
       <!-- Main Two-Column Split Layout -->
-      <main class="ra-main-split">
+      <div class="workspace-split">
         
-        <!-- Left Column: Conversation Rail (32%) -->
-        <section class="ra-rail-left">
-          <div class="ra-rail-head">
-            <span class="ra-rail-title">Conversation</span>
-            <span class="ra-rail-caption">grounded synthesis</span>
+        <!-- Left Rail: Synthesis & Research Thread -->
+        <aside class="rail-synthesis">
+          <div class="rail-header">
+            <span class="rail-title">Research Inquiries & Synthesis</span>
+            <span class="rail-meta">Grounded brief</span>
           </div>
 
-          <!-- Message Scroll Region -->
-          <div class="ra-message-scroll ra-scroll" id="ra-conversation-scroll">
-            <!-- Dynamic message list or empty state rendered by js/app.js -->
+          <!-- Thread Stream -->
+          <div class="thread-stream scrollbar-subtle" id="conversation-stream">
+            <!-- Rendered dynamically by js/app.js -->
           </div>
 
-          <!-- Fixed Footer: Composer -->
-          <div class="ra-composer-wrap">
-            <div class="ra-composer-label-row">
-              <span>Ask a research question</span>
-              <span class="ra-keyboard-hint">Enter ↵ to send</span>
-            </div>
-            <div class="ra-composer-card">
+          <!-- Composer Box -->
+          <div class="composer-block">
+            <div class="composer-box">
               <textarea 
-                class="ra-textarea ra-scroll" 
-                id="ra-composer-input" 
+                class="composer-textarea scrollbar-subtle" 
+                id="composer-input" 
                 rows="2" 
-                placeholder="Ask a research question…"
+                placeholder="Ask a scientific research question (e.g., Sparse attention in long-context Transformers)…"
               ></textarea>
-              <div class="ra-composer-actions">
-                <span class="text-xs text-[var(--muted-foreground)]" id="ra-active-model-hint">arXiv · gpt-4o synthesis</span>
-                <div id="ra-composer-btn-slot">
-                  <button class="ra-btn-send" id="ra-btn-send">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>
+              <div class="composer-toolbar">
+                <span class="composer-hint">Press Enter to run query</span>
+                <div id="composer-btn-slot">
+                  <button class="btn-send" id="btn-send-query">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="22" y1="2" x2="11" y2="13"/>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
                     </svg>
-                    <span>Send</span>
+                    <span>Synthesize</span>
                   </button>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </aside>
 
-        <!-- Right Column: Research Workspace Rail (68%) -->
-        <section class="ra-rail-right" id="ra-rail-right-root">
+        <!-- Right Rail: Evidence Desk -->
+        <main class="rail-evidence" id="evidence-desk">
           
-          <!-- Unified Command Strip -->
-          <div class="ra-command-strip">
-            <div class="ra-tab-bar" id="ra-tab-bar">
-              <button class="ra-tab-btn active" data-tab="papers">
-                <span>Papers</span>
-                <span class="ra-tab-count-pill" id="tab-pill-papers">0</span>
-                <span class="ra-tab-indicator"></span>
+          <!-- Unified Command Toolbar -->
+          <div class="desk-toolbar">
+            <div class="desk-tabs" id="desk-tabs">
+              <button class="desk-tab-btn active" data-tab="papers">
+                <span>Literature</span>
+                <span class="tab-badge" id="badge-papers-count">0</span>
               </button>
-              <button class="ra-tab-btn" data-tab="graph">
-                <span>Concept Graph</span>
-                <span class="ra-tab-count-pill" id="tab-pill-graph">0</span>
+              <button class="desk-tab-btn" data-tab="graph">
+                <span>Concept Map</span>
+                <span class="tab-badge" id="badge-graph-count">0</span>
               </button>
-              <button class="ra-tab-btn" data-tab="compare">
-                <span>Compare</span>
+              <button class="desk-tab-btn" data-tab="compare">
+                <span>Compare Runs</span>
               </button>
             </div>
 
-            <!-- Strip Actions -->
-            <div class="ra-strip-actions">
-              <div class="ra-run-pill" id="ra-strip-run-info">
-                <span>Run: <strong>--</strong></span>
-              </div>
-              <button class="ra-icon-btn" id="ra-settings-trigger" title="Research settings">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>
-                </svg>
-              </button>
+            <!-- Run Selector Dropdown -->
+            <div class="desk-actions">
+              <select class="run-select font-mono" id="desk-run-select">
+                <!-- Populated dynamically -->
+              </select>
             </div>
           </div>
 
-          <!-- Secondary Sub-Bar (Filters & Run Selector) -->
-          <div class="ra-sub-bar" id="ra-sub-bar">
-            <!-- Injected dynamically by active tab -->
+          <!-- Secondary Sub-Bar (Filters & Action Tools) -->
+          <div class="desk-subbar" id="desk-subbar">
+            <!-- Dynamic filters inserted here -->
           </div>
 
-          <!-- Tab Content Scrollable Region -->
-          <div class="ra-tab-content ra-scroll" id="ra-tab-content">
-            <!-- Rendered dynamically by active tab -->
+          <!-- Tab Content Scrollable Container -->
+          <div class="desk-content scrollbar-subtle" id="desk-content">
+            <!-- Literature view / Graph view / Compare view -->
           </div>
 
           <!-- In-App PDF Slide-Over Drawer -->
-          <div class="ra-pdf-drawer-overlay" id="ra-pdf-drawer-overlay">
-            <div class="ra-pdf-drawer" id="ra-pdf-drawer">
-              <div class="ra-pdf-drawer-head">
+          <div class="pdf-drawer-overlay" id="pdf-drawer-overlay">
+            <div class="pdf-drawer">
+              <div class="pdf-drawer-header">
                 <div class="min-w-0 flex-1">
-                  <h3 class="text-sm font-semibold truncate" id="ra-pdf-drawer-title">Paper Viewer</h3>
-                  <p class="text-xs text-[var(--muted-foreground)] font-mono" id="ra-pdf-drawer-id">arXiv:...</p>
+                  <h3 class="text-sm font-semibold truncate" id="pdf-drawer-title">Paper Preview</h3>
+                  <span class="text-xs font-mono text-muted" id="pdf-drawer-id">arXiv:0000.00000</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <a class="ra-btn-outline h-7 text-xs px-2" id="ra-pdf-external-link" href="#" target="_blank">
-                    Open in Tab ↗
+                  <a class="btn-secondary" id="pdf-external-anchor" href="#" target="_blank" rel="noopener">
+                    <span>Open in tab ↗</span>
                   </a>
-                  <button class="ra-icon-btn h-7 w-7" id="ra-pdf-close-btn" title="Close Reader">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  <button class="btn-icon" id="pdf-drawer-close" title="Close document preview">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                   </button>
                 </div>
               </div>
-              <iframe class="ra-pdf-frame" id="ra-pdf-iframe" src="about:blank"></iframe>
+              <iframe class="pdf-frame" id="pdf-frame" src="about:blank"></iframe>
             </div>
           </div>
 
-        </section>
+        </main>
 
-      </main>
+      </div>
     </div>
   </div>
 
-  <!-- Settings Popover & Overlay -->
-  <div class="ra-popover-overlay" id="ra-settings-overlay"></div>
-  <div class="ra-popover ra-scroll" id="ra-settings-popover"></div>
+  <!-- Settings Popover & Backdrop -->
+  <div class="popover-backdrop" id="popover-backdrop"></div>
+  <div class="popover-dialog scrollbar-subtle" id="settings-popover">
+    <!-- Populated by js/app.js -->
+  </div>
 
   <!-- Vendor Scripts -->
   <script src="assets/vendor/force-graph.min.js"></script>
 
-  <!-- Application Logic -->
+  <!-- Modular Scripts -->
   <script src="js/icons.js"></script>
   <script src="js/mock_data.js"></script>
   <script src="js/state.js"></script>
