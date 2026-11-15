@@ -1,0 +1,1217 @@
+/* =========================================================================
+   Research Agent — Application Shell & Component Styles
+   ========================================================================= */
+
+/* ------------------------------- Layout Shell ------------------------------ */
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.ra-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1680px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 8px 24px 0;
+  overflow: hidden;
+}
+
+/* ---------------------------------- Header --------------------------------- */
+
+.ra-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 52px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.ra-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.ra-brand-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--mark-coral);
+  flex-shrink: 0;
+}
+
+.ra-brand-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.ra-brand-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+
+.ra-brand-subtitle {
+  margin-top: 2px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+}
+
+.ra-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ra-session-status {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+}
+
+@media (min-width: 900px) {
+  .ra-session-status {
+    display: flex;
+  }
+}
+
+.ra-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--graph-concept);
+  box-shadow: 0 0 6px var(--graph-concept);
+}
+
+.ra-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 150ms ease-out;
+}
+
+.ra-icon-btn:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-color: var(--border);
+}
+
+.ra-icon-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* ------------------------------- Main Body -------------------------------- */
+
+.ra-main-split {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  gap: 1.75rem;
+  padding-top: 0.75rem;
+  overflow: hidden;
+}
+
+/* ---------------------------- Conversation Rail --------------------------- */
+
+.ra-rail-left {
+  display: flex;
+  flex-direction: column;
+  width: 32%;
+  min-width: 320px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ra-rail-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.ra-rail-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+
+.ra-rail-caption {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.ra-message-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Empty State */
+.ra-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 38vh;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  margin: auto 0;
+}
+
+.ra-empty-icon-box {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  margin: 0 auto 1rem;
+  color: var(--foreground);
+}
+
+.ra-empty-title {
+  font-size: 1.4rem;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.75rem;
+}
+
+.ra-empty-desc {
+  max-width: 400px;
+  margin: 0 auto 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+.ra-flow-steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.ra-step-pill {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 5px 12px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--foreground);
+}
+
+.ra-step-arrow {
+  color: var(--muted-foreground);
+  display: flex;
+  align-items: center;
+}
+
+/* Chat Messages */
+.ra-message-row {
+  display: flex;
+  width: 100%;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.ra-avatar {
+  margin-top: 2px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 999px;
+}
+
+.ra-avatar-user {
+  background: var(--mark-coral);
+  color: #ffffff;
+}
+
+.ra-avatar-assistant {
+  background: #f3c778;
+  color: #5a3b00;
+}
+
+.ra-user-bubble {
+  display: inline-block;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border-radius: 14px;
+  border-bottom-right-radius: 4px;
+  background: var(--primary);
+  padding: 9px 12px;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--primary-foreground);
+}
+
+.ra-assistant-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Interactive Citation Pills in Markdown */
+.ra-cite-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  margin: 0 2px;
+  font-size: 0.75rem;
+  font-family: inherit;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  color: var(--link);
+  cursor: pointer;
+  text-decoration: none;
+  vertical-align: baseline;
+  transition: all 120ms ease-out;
+}
+
+.ra-cite-pill:hover {
+  background: var(--card);
+  border-color: var(--link);
+  box-shadow: 0 0 0 1px var(--link);
+}
+
+.ra-unsourced-note {
+  margin-top: 0.625rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+}
+
+/* Evidence Card */
+.ra-evidence-block {
+  margin-top: 0.625rem;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--secondary);
+}
+
+.ra-evidence-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px 12px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 150ms ease-out;
+}
+
+.ra-evidence-toggle:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.ra-claims-list {
+  border-top: 1px solid var(--border);
+  background: var(--card);
+}
+
+.ra-claim-row {
+  border-top: 1px solid var(--border);
+  padding: 9px 12px;
+}
+
+.ra-claim-row:first-child {
+  border-top: none;
+}
+
+.ra-claim-text {
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--foreground);
+}
+
+.ra-claim-meta {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+/* Thinking Card */
+.ra-thinking-card {
+  display: flex;
+  width: 100%;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.ra-thinking-box {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow-float);
+}
+
+.ra-thinking-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  text-align: left;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 150ms ease-out;
+}
+
+.ra-thinking-toggle:hover {
+  background: var(--accent);
+}
+
+.ra-thinking-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+
+.ra-thinking-log {
+  max-height: 200px;
+  overflow-y: auto;
+  border-top: 1px solid var(--border);
+  padding: 8px 12px;
+  background: var(--secondary);
+}
+
+.ra-progress-line {
+  display: flex;
+  gap: 0.5rem;
+  padding: 3px 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--muted-foreground);
+}
+
+.ra-progress-bullet {
+  margin-top: 6px;
+  width: 4px;
+  height: 4px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--muted-foreground);
+}
+
+/* Spinner */
+.ra-spinner {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 2px solid var(--border);
+  border-top-color: var(--foreground);
+  animation: ra-spin 700ms linear infinite;
+}
+
+.ra-spinner-primary {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+}
+
+@keyframes ra-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Composer */
+.ra-composer-wrap {
+  flex-shrink: 0;
+  padding-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ra-composer-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted-foreground);
+}
+
+.ra-composer-card {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 8px;
+  box-shadow: var(--shadow-float);
+}
+
+.ra-textarea {
+  min-height: 68px;
+  max-height: 180px;
+  width: 100%;
+  resize: none;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--secondary);
+  padding: 10px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--foreground);
+  outline: none;
+}
+
+.ra-textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+.ra-textarea:focus {
+  background: var(--card);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.ra-composer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.ra-keyboard-hint {
+  font-size: 0.7rem;
+  color: var(--muted-foreground);
+  padding-left: 4px;
+}
+
+.ra-btn-send {
+  display: inline-flex;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--primary-foreground);
+  border: none;
+  cursor: pointer;
+  transition: all 150ms ease-out;
+}
+
+.ra-btn-send:hover {
+  opacity: 0.9;
+}
+
+.ra-btn-stop {
+  display: inline-flex;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--destructive);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 150ms ease-out;
+}
+
+/* --------------------------- Workspace Rail ------------------------------- */
+
+.ra-rail-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Unified Command Strip (Replaces striped ladder of borders) */
+.ra-command-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+.ra-tab-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ra-tab-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 8px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 150ms ease-out;
+}
+
+.ra-tab-btn:hover {
+  color: var(--foreground);
+}
+
+.ra-tab-btn.active {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.ra-tab-count-pill {
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--secondary);
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+}
+
+.ra-tab-btn.active .ra-tab-count-pill {
+  background: var(--card);
+  color: var(--foreground);
+}
+
+.ra-tab-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -9px;
+  height: 2px;
+  background: var(--foreground);
+}
+
+/* Strip Actions on Right */
+.ra-strip-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ra-run-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+}
+
+.ra-run-pill strong {
+  color: var(--foreground);
+}
+
+/* Secondary Filter / Action Bar */
+.ra-sub-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  flex-shrink: 0;
+}
+
+.ra-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ra-filter-chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: all 120ms ease-out;
+}
+
+.ra-filter-chip:hover {
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.ra-filter-chip.active {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+/* Tab Content Region */
+.ra-tab-content {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  padding: 0.25rem 0.5rem 1rem 0;
+}
+
+/* ------------------------------- Papers Tab ------------------------------- */
+
+.ra-papers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.ra-paper-card {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+}
+
+.ra-paper-card.card-keep {
+  border-left: 3px solid var(--graph-paper);
+}
+
+.ra-paper-card.card-maybe {
+  border-left: 3px solid var(--mark-coral);
+}
+
+.ra-paper-card.card-skip {
+  border-left: 3px solid var(--muted-foreground);
+  opacity: 0.75;
+}
+
+.ra-paper-card.highlight-pulse {
+  animation: ra-pulse-focus 1.2s ease-out 2;
+}
+
+@keyframes ra-pulse-focus {
+  0% { box-shadow: 0 0 0 0 var(--link); }
+  50% { box-shadow: 0 0 0 4px var(--link); }
+  100% { box-shadow: 0 0 0 0 var(--link); }
+}
+
+.ra-paper-header-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 120ms ease-out;
+}
+
+.ra-paper-header-btn:hover {
+  background: var(--accent);
+}
+
+.ra-paper-body {
+  border-top: 1px solid var(--border);
+  padding: 12px 14px;
+}
+
+.ra-paper-meta-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  padding: 12px;
+}
+
+.ra-paper-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.ra-paper-summary {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+/* Screening row */
+.ra-screening-row {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.ra-btn-pill {
+  height: 28px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 120ms ease-out;
+}
+
+.ra-btn-pill:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.ra-btn-pill.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.ra-screening-badge {
+  display: inline-flex;
+  white-space: nowrap;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ra-badge-keep {
+  color: var(--graph-paper);
+  border-color: var(--graph-paper);
+}
+
+.ra-badge-maybe {
+  color: var(--mark-coral);
+  border-color: var(--mark-coral);
+}
+
+.ra-badge-skip {
+  color: var(--muted-foreground);
+  text-decoration: line-through;
+}
+
+.ra-badge-unreviewed {
+  color: var(--muted-foreground);
+}
+
+.ra-paper-input {
+  margin-top: 8px;
+  height: 32px;
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 0 10px;
+  font-size: 0.8rem;
+  color: var(--foreground);
+  outline: none;
+}
+
+.ra-paper-input:focus {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+/* ---------------------------- Concept Graph Tab --------------------------- */
+
+.ra-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: var(--card);
+  overflow: hidden;
+}
+
+.ra-canvas-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Floating HUD on Graph Canvas */
+.ra-graph-hud {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 6px;
+  box-shadow: var(--shadow-float);
+}
+
+.ra-hud-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: transparent;
+  border: none;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: all 120ms ease-out;
+}
+
+.ra-hud-btn:hover {
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.ra-hud-btn.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.ra-hud-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: all 120ms ease-out;
+}
+
+.ra-hud-icon-btn:hover {
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+/* Node Inspector Panel */
+.ra-selection-panel {
+  margin-top: 0.625rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  padding: 10px 14px;
+  flex-shrink: 0;
+}
+
+/* ------------------------- In-App PDF Reader Drawer ----------------------- */
+
+.ra-pdf-drawer-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  display: none;
+}
+
+.ra-pdf-drawer-overlay.open {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ra-pdf-drawer {
+  width: 85%;
+  max-width: 900px;
+  height: 100%;
+  background: var(--card);
+  border-left: 1px solid var(--border);
+  box-shadow: -8px 0 24px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  animation: ra-slide-in 200ms ease-out both;
+}
+
+@keyframes ra-slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.ra-pdf-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--secondary);
+}
+
+.ra-pdf-frame {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ------------------------------- Compare Tab ------------------------------ */
+
+.ra-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .ra-compare-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ra-metrics-grid {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.ra-metric-tile {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 12px;
+}
+
+.ra-metric-value {
+  margin-top: 0.25rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.ra-concept-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ra-concept-tag {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 3px 9px;
+  font-size: 0.75rem;
+  color: var(--graph-concept);
+}
+
+/* ----------------------------- Settings Popover --------------------------- */
+
+.ra-popover-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.ra-popover-overlay.open {
+  display: block;
+}
+
+.ra-popover {
+  position: fixed;
+  top: 56px;
+  right: 24px;
+  z-index: 999;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  max-height: min(80vh, 740px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--popover);
+  color: var(--popover-foreground);
+  padding: 1rem;
+  box-shadow: var(--shadow-float);
+  overflow-y: auto;
+  display: none;
+}
+
+.ra-popover.open {
+  display: block;
+  animation: ra-fade-up 150ms ease-out both;
+}
+
+.ra-slider {
+  height: 5px;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  border-radius: 999px;
+  background: var(--secondary);
+  accent-color: var(--primary);
+  outline: none;
+}
+
+/* ---------------------------- Responsive Rules ---------------------------- */
+
+@media (max-width: 899px) {
+  html, body {
+    height: auto;
+    overflow: auto;
+  }
+
+  #app-root {
+    height: auto;
+    overflow: visible;
+  }
+
+  .ra-container {
+    height: auto;
+    overflow: visible;
+    padding-bottom: 2rem;
+  }
+
+  .ra-main-split {
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
+  }
+
+  .ra-rail-left {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    overflow: visible;
+  }
+
+  .ra-rail-right {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .ra-message-scroll {
+    max-height: 60vh;
+  }
+
+  .ra-tab-content {
+    max-height: 70vh;
+  }
+
+  .ra-composer-wrap {
+    position: sticky;
+    bottom: 0;
+    background: var(--background);
+    z-index: 10;
+    padding-bottom: 0.5rem;
+  }
+
+  .ra-canvas-wrap {
+    height: 380px;
+  }
+}
