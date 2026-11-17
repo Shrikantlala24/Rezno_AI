@@ -13,19 +13,19 @@
 <br><br>
 
 <p align="center">
-  <img src="docs/assets/rezno_cockpit_papers.png" alt="Rezno AI Evidence Cockpit & Literature Intelligence" width="100%">
+  <img src="docs/assets/rezno_research_interface.png" alt="Rezno AI Research Interface & Literature Intelligence" width="100%">
 </p>
 
 </div>
 
 ---
 
-## The Cockpit in Action
+## Research Interface in Action
 
-| Evidence Desk & Ranked Retrieval | Topological Bipartite Concept Graph |
+| Literature Discovery & Evidence Desk | Topological Bipartite Concept Graph |
 | :---: | :---: |
-| <img src="docs/assets/rezno_cockpit_papers.png" alt="Evidence Desk" width="100%"/> | <img src="docs/assets/rezno_cockpit_graph.png" alt="Concept Graph" width="100%"/> |
-| *Ranked preprint discovery with cosine relevance scores, abstract extracts, and direct arXiv PDF access.* | *Interactive D3 graph mapping `Paper ──MENTIONS──▶ Concept` and semantic `SIMILAR_TO` clusters.* |
+| <img src="docs/assets/rezno_research_interface.png" alt="Literature Discovery & Evidence Desk" width="100%"/> | <img src="docs/assets/rezno_concept_graph.png" alt="Bipartite Concept Graph" width="100%"/> |
+| *Dense semantic re-ranking with cosine relevance scores, verbatim abstract evidence, and instant arXiv PDF access.* | *Interactive topological knowledge graph mapping `Paper ──MENTIONS──▶ Concept` and semantic `SIMILAR_TO` edges.* |
 
 ---
 
@@ -169,7 +169,7 @@ Rezno_AI/
 │   ├── core/           # Pipeline, retrieval, re-ranking, synthesis, graph, routing
 │   ├── integrations/   # LLM (google-genai), citations, BibTeX, web search
 │   └── evaluation/     # Benchmarks and diagnostics
-├── frontend/           # Zero-build HTML5 / Tailwind / D3.js web cockpit
+├── frontend/           # Zero-build HTML5 / Tailwind / D3.js web interface
 ├── tests/              # Pure pytest suite (59 offline tests, 1 live API test)
 ├── docs/               # Architecture deep dives and decision history
 ├── Version_1/          # Zero-breakage backward-compatibility shims
