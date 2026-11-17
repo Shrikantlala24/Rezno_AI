@@ -10,7 +10,22 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+<br><br>
+
+<p align="center">
+  <img src="docs/assets/rezno_cockpit_papers.png" alt="Rezno AI Evidence Cockpit & Literature Intelligence" width="100%">
+</p>
+
 </div>
+
+---
+
+## The Cockpit in Action
+
+| Evidence Desk & Ranked Retrieval | Topological Bipartite Concept Graph |
+| :---: | :---: |
+| <img src="docs/assets/rezno_cockpit_papers.png" alt="Evidence Desk" width="100%"/> | <img src="docs/assets/rezno_cockpit_graph.png" alt="Concept Graph" width="100%"/> |
+| *Ranked preprint discovery with cosine relevance scores, abstract extracts, and direct arXiv PDF access.* | *Interactive D3 graph mapping `Paper ──MENTIONS──▶ Concept` and semantic `SIMILAR_TO` clusters.* |
 
 ---
 
