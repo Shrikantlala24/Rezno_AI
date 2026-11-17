@@ -96,11 +96,19 @@ document.addEventListener('DOMContentLoaded', () => {
       handleOpenPdf(payload);
     } else if (event === 'pdf_viewer_close') {
       handleClosePdf();
+    } else if (event === 'backend_status_changed') {
+      window.appState.updateConnectionStatusUI();
     }
   });
 
   // Initial Full Render
   renderAll();
+
+  // Initialize Resilient Hybrid Mode backend health probe
+  window.appState.updateConnectionStatusUI();
+  if (typeof window.appState.probeHealth === 'function') {
+    window.appState.probeHealth().catch(() => {});
+  }
 });
 
 // --- Composer & Input Handling ---
@@ -967,124 +975,26 @@ function handleSendMessage() {
   updateComposerButtonState();
   renderConversationThread();
 
-  // Progress Stages
-  const steps = [
-    { label: "Planning parallel arXiv queries", delay: 500 },
-    { label: `Querying arXiv API (depth: ${window.appState.perQuery} papers)`, delay: 1300 },
-    { label: `Cross-encoder re-ranking top ${window.appState.topK} candidates`, delay: 2200 },
-    { label: "Synthesizing executive brief and verifying claims", delay: 3000 },
-    { label: "Generating literature concept map", delay: 3800 }
-  ];
-
-  steps.forEach(step => {
-    setTimeout(() => {
-      if (!window.appState.isThinking) return;
-      window.appState.thinkingLabel = step.label;
+  // 3. Delegate to Resilient Hybrid State (Live Backend with automatic Mock fallback)
+  window.appState.submitQuery(question, {
+    onProgress: (label) => {
+      window.appState.thinkingLabel = label;
       renderConversationThread();
-    }, step.delay);
-  });
-
-  // Finish Synthesis
-  window.appState.activeSearchTimer = setTimeout(() => {
-    if (!window.appState.isThinking) return;
-
-    const runId = `run-${Date.now()}`;
-    const newRun = {
-      id: runId,
-      query: question,
-      queries: [
-        question,
-        `${question} survey and empirical analysis`,
-        `${question} benchmarks and state of the art`
-      ],
-      candidate_count: 58,
-      status: "ok",
-      search_error: null,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      synthesis: {
-        summary: `Recent investigations into **${question}** identify clear empirical trade-offs between computational overhead and representation accuracy. Cross-referencing retrieved literature highlights two pivotal strategies: first, localized sparse approximations limit memory footprint without compromising representation fidelity (2401.01234); second, hybrid training formulations generalize effectively across standard academic benchmarks (2312.05678).`,
-        citations: ["2401.01234", "2312.05678"],
-        claims: [
-          {
-            claim: `Empirical evaluations on ${question} establish consistent improvements over classical baselines.`,
-            arxiv_id: "2401.01234",
-            supporting_sentence: "Experimental validation demonstrates that our proposed mechanism yields significant gains across all standardized test datasets."
-          },
-          {
-            claim: "Sparse representations reduce memory scaling requirements.",
-            arxiv_id: "2312.05678",
-            supporting_sentence: "Memory consumption is reduced by substituting dense tensor products with bounded sparse matrices."
-          }
-        ]
-      },
-      papers: [
-        {
-          arxiv_id: "2401.01234",
-          title: `Empirical Foundations and Architectural Paradigms for ${question}`,
-          authors: ["Elena Rostova", "Marcus Vance", "David Chen"],
-          author_line: "Elena Rostova, Marcus Vance, David Chen",
-          summary: `A systematic investigation of modern approaches to ${question}, benchmarking execution latency, convergence rates, and parameter scalability.`,
-          published: "2024-01-08",
-          pdf_url: "https://arxiv.org/pdf/2401.01234.pdf",
-          abs_url: "https://arxiv.org/abs/2401.01234",
-          primary_category: "cs.AI",
-          relevance_score: 0.958,
-          status: "keep",
-          note: "Directly relevant methodology."
-        },
-        {
-          arxiv_id: "2312.05678",
-          title: `Sparse Formulations and Memory Efficiency in Modern Neural Architectures`,
-          authors: ["Siddharth Patel", "Chloe Martin"],
-          author_line: "Siddharth Patel, Chloe Martin",
-          summary: "Introduces bounded sparse tensor operators that accelerate inference and training across modern accelerators.",
-          published: "2023-12-14",
-          pdf_url: "https://arxiv.org/pdf/2312.05678.pdf",
-          abs_url: "https://arxiv.org/abs/2312.05678",
-          primary_category: "cs.LG",
-          relevance_score: 0.884,
-          status: "unreviewed",
-          note: ""
-        }
-      ],
-      graph: {
-        nodes: [
-          { id: "2401.01234", label: `Architectural Paradigms (2401.01234)`, type: "paper", pdf_url: "https://arxiv.org/pdf/2401.01234.pdf", abs_url: "https://arxiv.org/abs/2401.01234" },
-          { id: "2312.05678", label: "Sparse Formulations (2312.05678)", type: "paper", pdf_url: "https://arxiv.org/pdf/2312.05678.pdf", abs_url: "https://arxiv.org/abs/2312.05678" },
-          { id: "c-core", label: question.substring(0, 30), type: "concept" },
-          { id: "c-benchmarks", label: "Standardized Benchmarks", type: "concept" },
-          { id: "c-sparse", label: "Sparse Tensor Operators", type: "concept" }
-        ],
-        edges: [
-          { source: "2401.01234", target: "c-core", type: "MENTIONS" },
-          { source: "2401.01234", target: "c-benchmarks", type: "MENTIONS" },
-          { source: "2312.05678", target: "c-sparse", type: "MENTIONS" },
-          { source: "c-sparse", target: "c-core", type: "SIMILAR_TO" },
-          { source: "2401.01234", target: "2312.05678", type: "SIMILAR_TO" }
-        ]
-      }
-    };
-
-    window.appState.runs.unshift(newRun);
-    if (window.appState.runs.length > 10) window.appState.runs.pop();
-    window.appState.selectedRunId = runId;
-
-    const assistantMsg = {
-      id: `msg-${Date.now()}-a`,
-      role: 'assistant',
-      content: newRun.synthesis.summary,
-      search_run_id: runId,
-      is_unsourced: false,
-      is_fallback: false,
-      claims: newRun.synthesis.claims
-    };
-    window.appState.messages.push(assistantMsg);
-    window.appState.expandedEvidence.add(assistantMsg.id);
-
+    },
+    onComplete: () => {
+      updateComposerButtonState();
+      renderAll();
+    },
+    onError: () => {
+      updateComposerButtonState();
+      renderAll();
+    }
+  }).catch((err) => {
+    console.error("Query execution error (guaranteed zero crash):", err);
     window.appState.isThinking = false;
     updateComposerButtonState();
     renderAll();
-  }, 4400);
+  });
 }
 
 function escapeHtml(str) {
