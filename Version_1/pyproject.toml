@@ -10,10 +10,8 @@ dependencies = [
     # Ranking
     "sentence-transformers",
     "numpy",
-    # LLM
-    "langchain",
-    "langchain-google-genai",
-    "langchain-anthropic",
+    # LLM (native google-genai)
+    "google-genai>=2.17.0",
     "python-dotenv",
     # Schemas
     "pydantic",

@@ -1,0 +1,34 @@
+[project]
+name = "rezno-ai"
+version = "0.2.0"
+description = "Rezno AI — Academic Literature Intelligence Engine with Grounded Claim Verification and Bipartite Concept Graphs"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.28.0",
+    "sentence-transformers>=2.2.0",
+    "numpy>=1.24.0",
+    "google-genai>=2.17.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+    "arxiv>=2.1.0",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "httpx>=0.27.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not live_api'"
+markers = [
+    "live_api: marks tests that make live API requests to Gemini (opt-in)",
+]

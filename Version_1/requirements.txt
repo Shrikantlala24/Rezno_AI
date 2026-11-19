@@ -7,10 +7,8 @@ arxiv
 sentence-transformers
 numpy
 
-# LLM (query expansion, routing, extraction, synthesis)
-langchain
-langchain-google-genai
-langchain-anthropic
+# LLM (query expansion, routing, extraction, synthesis via native google-genai)
+google-genai>=2.17.0
 python-dotenv
 
 # Schemas & DB
